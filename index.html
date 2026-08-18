@@ -68,12 +68,6 @@
             z-index: 10;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
-        }
-        .audio-glow { animation: pulseGlow 3s infinite ease-in-out; }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -86,7 +80,7 @@
         button:disabled { opacity: 0.6; cursor: not-allowed; }
 
         @media (prefers-reduced-motion: reduce) {
-            .audio-glow, .animate-fade-in { animation: none; }
+            .animate-fade-in { animation: none; }
             #petalCanvas { display: none; }
         }
     </style>
@@ -95,23 +89,9 @@
 
     <canvas id="petalCanvas"></canvas>
 
-    <!-- Floating Audio Control Player -->
-    <div class="fixed top-4 right-4 z-40 flex items-center gap-2 bg-white/95 backdrop-blur border border-amber-300 p-1.5 pr-4 rounded-full shadow-lg hover:bg-amber-50 transition-all text-xs font-semibold text-stone-700 audio-glow">
-        <button id="musicToggleBtn" onclick="toggleWeddingMusic()" aria-label="Play our wedding song" class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-700 text-white shadow hover:bg-amber-800 transition-all cursor-pointer">
-            <span id="musicIcon" class="text-sm">▶</span>
-        </button>
-        <div class="flex flex-col text-left cursor-pointer" onclick="toggleWeddingMusic()">
-            <span class="text-[11px] font-bold text-stone-800 flex items-center gap-1">
-                <span>🎵</span> Carry You Home
-            </span>
-            <span id="musicText" class="text-[9px] text-amber-800/80 font-medium">Alex Warren • Tap to Play</span>
-        </div>
-    </div>
-
-    <!-- The one and only audio source for the whole page.
-         No `loop` attribute: looping is handled in JS so it returns to the
-         2:17 mark rather than the start of the track. -->
-    <audio id="weddingAudio" src="assets/carry-you-home.mp3" preload="metadata"></audio>
+    <!-- Ambient background music. Deliberately has no visible controls and
+         names no track: it is atmosphere, not a player. -->
+    <audio id="weddingAudio" src="assets/background-music.mp3" preload="auto" loop autoplay></audio>
 
     <!-- Main Outer Container -->
     <div class="max-w-4xl mx-auto px-4 py-8 md:py-12 relative z-20">
@@ -156,38 +136,6 @@
                     <span class="text-[10px] uppercase tracking-wider text-stone-500">Secs</span>
                 </div>
             </div>
-        </div>
-
-        <!-- Embedded Song Player Card -->
-        <div class="glass-card rounded-3xl p-6 mb-12 gold-border text-center max-w-2xl mx-auto">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <span class="text-2xl animate-bounce">🎶</span>
-                <h3 class="font-cinzel text-sm font-bold text-[#7d5a50] tracking-wider uppercase">Our Wedding Soundtrack</h3>
-            </div>
-            <h4 class="font-playfair text-lg font-bold text-stone-800 mb-1">Alex Warren — "Carry You Home"</h4>
-            <p class="text-xs text-stone-500 mb-5 italic">"I hope you know I will carry you home, whether it's tonight or 55 years down the road..."</p>
-
-            <!-- Custom player driving the single #weddingAudio element -->
-            <div class="max-w-lg mx-auto bg-amber-50/70 border border-amber-200 rounded-2xl p-4 flex items-center gap-4 shadow-inner">
-                <button id="cardPlayBtn" onclick="toggleWeddingMusic()" aria-label="Play our wedding song"
-                        class="shrink-0 w-12 h-12 rounded-full bg-amber-700 hover:bg-amber-800 text-white text-lg flex items-center justify-center shadow-md transition-all">
-                    <span id="cardPlayIcon">▶</span>
-                </button>
-                <div class="flex-1 text-left">
-                    <input id="seekBar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek"
-                           class="w-full accent-amber-700 cursor-pointer">
-                    <div class="flex justify-between text-[10px] text-stone-500 font-medium mt-1">
-                        <span id="currentTime">0:00</span>
-                        <span id="totalTime">0:00</span>
-                    </div>
-                </div>
-                <div class="shrink-0 flex items-center gap-1.5">
-                    <span class="text-xs text-stone-400">🔊</span>
-                    <input id="volumeBar" type="range" min="0" max="1" step="0.05" value="0.35" aria-label="Volume"
-                           class="w-16 accent-amber-700 cursor-pointer">
-                </div>
-            </div>
-            <p id="audioError" class="hidden text-[11px] text-rose-700 mt-3 font-medium"></p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 md:p-8 mb-12 gold-border text-center">
@@ -252,7 +200,7 @@
                 
                 <div class="gallery-item childhood glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=600&q=80" alt="Young Mahmoud" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-2.jpg" alt="Mahmoud as a little boy" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Childhood</span>
                     </div>
                     <div class="p-3 text-center">
@@ -263,7 +211,7 @@
 
                 <div class="gallery-item childhood glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-rose-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Young Nouran" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-1.jpg" alt="Nouran as a little girl" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Childhood</span>
                     </div>
                     <div class="p-3 text-center">
@@ -274,45 +222,56 @@
 
                 <div class="gallery-item outings glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="First Coffee Date" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-4.jpg" alt="Mahmoud and Nouran in their home while it was being built" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Outings</span>
                     </div>
                     <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Cairo Nights & Coffee</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Endless conversations over coffee.</p>
+                        <h4 class="font-playfair text-sm font-bold text-stone-800">Building Our First Home</h4>
+                        <p class="text-[11px] text-stone-500 mt-1">Bare walls, and already full of plans.</p>
                     </div>
                 </div>
 
                 <div class="gallery-item outings glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Nile Walk" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-5.jpg" alt="Mahmoud and Nouran on an evening out" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Outings</span>
                     </div>
                     <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Nile River Sunset</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Walking along the Nile together.</p>
+                        <h4 class="font-playfair text-sm font-bold text-stone-800">An Evening Out</h4>
+                        <p class="text-[11px] text-stone-500 mt-1">Dressed up, out late, and laughing.</p>
                     </div>
                 </div>
 
                 <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Engagement Rings" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-3.jpg" alt="Mahmoud and Nouran dancing at their engagement party" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
                     </div>
                     <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Shabka & Engagement Ring</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">The day we promised forever.</p>
+                        <h4 class="font-playfair text-sm font-bold text-stone-800">Onto The Dance Floor</h4>
+                        <p class="text-[11px] text-stone-500 mt-1">The night everyone danced with us.</p>
                     </div>
                 </div>
 
                 <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
                     <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Engagement Celebration" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <img src="assets/photos/photo-6.jpg" alt="Mahmoud and Nouran walking hand in hand by the water" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
                         <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
                     </div>
                     <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Family Celebration</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Surrounded by warmth, love & laughter.</p>
+                        <h4 class="font-playfair text-sm font-bold text-stone-800">Hand In Hand</h4>
+                        <p class="text-[11px] text-stone-500 mt-1">Walking into everything that comes next.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
+                        <img src="assets/photos/photo-7.jpg" alt="Mahmoud and Nouran sitting together under the evening lights" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                        <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
+                    </div>
+                    <div class="p-3 text-center">
+                        <h4 class="font-playfair text-sm font-bold text-stone-800">Under The Lights</h4>
+                        <p class="text-[11px] text-stone-500 mt-1">A quiet moment in the middle of the celebration.</p>
                     </div>
                 </div>
 
@@ -390,36 +349,33 @@
         <div class="glass-card rounded-3xl p-6 md:p-10 mb-12 gold-border max-w-2xl mx-auto text-center relative overflow-hidden">
             <span class="text-xs font-bold uppercase tracking-widest text-amber-700">Honor Us With Your Presence</span>
             <h2 class="font-cursive text-5xl text-[#7d5a50] my-2">RSVP</h2>
-            <p class="text-xs text-stone-500 mb-8">Please kindly respond by September 10, 2026 to help us prepare.</p>
+            <p class="text-xs text-stone-500 mb-8">Please kindly respond by August 31, 2026 to help us prepare.</p>
 
             <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-4 text-left">
+                <!-- Who you are -->
                 <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Full Name *</label>
+                    <label for="guestName" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Full Name *</label>
                     <input type="text" id="guestName" required placeholder="e.g. Ahmed Hassan" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Email Address *</label>
-                        <input type="email" id="guestEmail" required placeholder="your.email@example.com" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Phone Number</label>
-                        <input type="tel" id="guestPhone" placeholder="+20 1xx xxxxxxx" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
-                    </div>
+                <div>
+                    <label for="guestPhone" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Phone Number</label>
+                    <input type="tel" id="guestPhone" placeholder="+20 1xx xxxxxxx" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                 </div>
 
+                <!-- Whether you're coming, and with how many -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Will You Attend? *</label>
+                        <label for="guestAttendance" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Will You Attend? *</label>
                         <select id="guestAttendance" required class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                             <option value="" disabled selected>Select Attendance</option>
-                            <option value="Joyfully Accepts">Joyfully Accept (حضور بكل سرور)</option>
-                            <option value="Regretfully Declines">Regretfully Decline (اعتذار)</option>
+                            <option value="Yes">Yes (حضور بإذن الله)</option>
+                            <option value="Maybe">Maybe (ربما)</option>
+                            <option value="Unfortunately No">Unfortunately No (اعتذار)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Number of Guests *</label>
+                        <label for="guestCount" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Number of Guests *</label>
                         <select id="guestCount" required class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                             <option value="1">1 Person</option>
                             <option value="2">2 Persons</option>
@@ -429,33 +385,21 @@
                     </div>
                 </div>
 
+                <!-- Then the fun part -->
                 <div>
-                    <div class="flex justify-between items-center mb-1">
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider">Song Request / Warm Blessings</label>
-                        <!-- AI Tools Buttons -->
-                        <div class="flex gap-2">
-                            <button type="button" onclick="generateAiWish()" id="aiWishBtn" class="text-[10px] bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-2.5 py-1 rounded-lg font-semibold transition-all">
-                                ✨ Write Wish with AI
-                            </button>
-                            <button type="button" onclick="generateAiSongIdea()" id="aiSongBtn" class="text-[10px] bg-rose-100 hover:bg-rose-200 text-rose-900 border border-rose-300 px-2.5 py-1 rounded-lg font-semibold transition-all">
-                                🎵 AI DJ Song Idea
-                            </button>
-                        </div>
-                    </div>
-                    <textarea id="guestNotes" rows="3" placeholder="Write a sweet message or request a song for the DJ..." class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80"></textarea>
+                    <label for="guestSongs" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">🎵 Song Requests</label>
+                    <input type="text" id="guestSongs" placeholder="A song that will get you onto the dance floor..." class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                 </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all text-xs tracking-wider uppercase mt-4">
-                    Confirm & Submit RSVP
+                <div>
+                    <label for="guestNotes" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Warm Blessings</label>
+                    <textarea id="guestNotes" rows="3" placeholder="Write a sweet message for Mahmoud &amp; Nouran..." class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80"></textarea>
+                </div>
+
+                <button type="submit" id="rsvpSubmitBtn" class="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all text-xs tracking-wider uppercase mt-4">
+                    Confirm &amp; Submit RSVP
                 </button>
             </form>
-
-            <div class="mt-6 pt-4 border-t border-amber-200/50 flex justify-between items-center text-[11px] text-stone-500">
-                <span>📊 Google Sheet Responses Database</span>
-                <button onclick="openSheetManager()" class="text-amber-800 underline font-semibold hover:text-amber-900">
-                    View Guest Responses Log (<span id="responseCount">0</span>)
-                </button>
-            </div>
         </div>
 
         <div class="fixed bottom-5 right-5 z-40">
@@ -522,8 +466,8 @@
             <div class="glass-card max-w-2xl w-full rounded-3xl p-6 border-2 border-amber-400/60 shadow-2xl max-h-[85vh] flex flex-col">
                 <div class="flex justify-between items-center mb-4 pb-2 border-b border-stone-200">
                     <div>
-                        <h3 class="font-cinzel text-base font-bold text-[#7d5a50]">RSVP Response Google Sheet Sync</h3>
-                        <p class="text-[10px] text-stone-500">Columns matching Google Sheets RSVP template</p>
+                        <h3 class="font-cinzel text-base font-bold text-[#7d5a50]">RSVP Backup Log (private)</h3>
+                        <p class="text-[10px] text-stone-500">Local copy of responses on this device — the live list lives in your Google Sheet</p>
                     </div>
                     <button onclick="closeSheetManager()" class="text-stone-400 hover:text-stone-700 text-xl font-bold">&times;</button>
                 </div>
@@ -534,11 +478,12 @@
                             <tr class="bg-amber-100/80 text-amber-900 font-bold uppercase tracking-wider">
                                 <th class="p-2 border border-amber-200">Timestamp</th>
                                 <th class="p-2 border border-amber-200">Full Name</th>
-                                <th class="p-2 border border-amber-200">Email</th>
                                 <th class="p-2 border border-amber-200">Phone</th>
                                 <th class="p-2 border border-amber-200">Attendance</th>
                                 <th class="p-2 border border-amber-200">Guests</th>
-                                <th class="p-2 border border-amber-200">Notes/Blessings</th>
+                                <th class="p-2 border border-amber-200">Song Requests</th>
+                                <th class="p-2 border border-amber-200">Blessings</th>
+                                <th class="p-2 border border-amber-200">Sent</th>
                             </tr>
                         </thead>
                         <tbody id="sheetTableBody" class="text-stone-700">
@@ -560,137 +505,38 @@
 
         <footer class="text-center mt-12 pt-8 border-t border-amber-200/50 text-stone-500 text-xs">
             <p class="font-cursive text-3xl text-[#7d5a50] mb-1">Mahmoud & Nouran</p>
-            <p>&copy; 2026 Mahmoud & Nouran. All rights reserved. Made with ❤️ for our special Egyptian Wedding.</p>
+            <p>Made with ❤️ for our special Egyptian Wedding.</p>
         </footer>
 
     </div>
 
     <script>
         /* -------------------------------------------------------------
-           MUSIC PLAYER
-           A single local <audio> element is the one source of truth; the
-           floating pill and the soundtrack card are two views onto it, so
-           the song can never play twice over itself.
+           AMBIENT BACKGROUND MUSIC
+           The instrumental plays quietly under the page — no controls, no
+           track name. Browsers block unprompted audio, so if autoplay is
+           refused we start on the guest's first tap, scroll or key press.
         ------------------------------------------------------------- */
         const weddingAudio = document.getElementById('weddingAudio');
-        let isPlayingMusic = false;
+        const BACKGROUND_VOLUME = 0.18;
 
-        // The song starts at 2:17 — the couple's favourite passage. Everything
-        // below (seek bar, clock, looping) works within that window, so the
-        // earlier part of the track is never played.
-        const SONG_START = 137;
-        const DEFAULT_VOLUME = 0.35;
+        weddingAudio.volume = BACKGROUND_VOLUME;
 
-        weddingAudio.volume = DEFAULT_VOLUME;
-
-        // Length of the playable window, once metadata tells us the duration.
-        function windowDuration() {
-            return Math.max(0, (weddingAudio.duration || 0) - SONG_START);
+        function startBackgroundMusic() {
+            return weddingAudio.play();
         }
 
-        function toggleWeddingMusic() {
-            if (weddingAudio.paused) {
-                if (weddingAudio.currentTime < SONG_START) weddingAudio.currentTime = SONG_START;
-                // play() rejects if the browser blocks unprompted audio.
-                weddingAudio.play().catch(err => {
-                    console.warn('Playback blocked:', err);
-                    showAudioError('Tap the play button once more to start the music — your browser blocks audio until you interact with the page.');
-                });
-            } else {
-                weddingAudio.pause();
-            }
+        function armFirstGestureStart() {
+            const events = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+            const kickOff = () => {
+                startBackgroundMusic()
+                    .then(() => events.forEach(evt => window.removeEventListener(evt, kickOff)))
+                    .catch(() => { /* still blocked; the next gesture tries again */ });
+            };
+            events.forEach(evt => window.addEventListener(evt, kickOff, { passive: true }));
         }
 
-        function showAudioError(message) {
-            const el = document.getElementById('audioError');
-            el.textContent = message;
-            el.classList.remove('hidden');
-        }
-
-        function clearAudioError() {
-            document.getElementById('audioError').classList.add('hidden');
-        }
-
-        function updateMusicUI(playing) {
-            const musicIcon = document.getElementById('musicIcon');
-            const musicText = document.getElementById('musicText');
-            const musicBtn = document.getElementById('musicToggleBtn');
-            const cardIcon = document.getElementById('cardPlayIcon');
-            const cardBtn = document.getElementById('cardPlayBtn');
-
-            const label = playing ? 'Pause our wedding song' : 'Play our wedding song';
-            musicIcon.innerText = playing ? "❚❚" : "▶";
-            cardIcon.innerText = playing ? "❚❚" : "▶";
-            musicBtn.setAttribute('aria-label', label);
-            cardBtn.setAttribute('aria-label', label);
-
-            if (playing) {
-                musicText.innerText = "Playing • Carry You Home";
-                musicText.classList.add("text-emerald-700");
-                musicText.classList.remove("text-amber-800/80");
-            } else {
-                musicText.innerText = "Alex Warren • Tap to Play";
-                musicText.classList.remove("text-emerald-700");
-                musicText.classList.add("text-amber-800/80");
-            }
-        }
-
-        function formatTime(seconds) {
-            if (!isFinite(seconds) || seconds < 0) return '0:00';
-            const m = Math.floor(seconds / 60);
-            const s = Math.floor(seconds % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
-        }
-
-        // Audio element events drive the UI, so both views always agree.
-        weddingAudio.addEventListener('play', () => { isPlayingMusic = true; clearAudioError(); updateMusicUI(true); });
-        weddingAudio.addEventListener('pause', () => { isPlayingMusic = false; updateMusicUI(false); });
-        // Loop back to the 2:17 mark instead of the top of the track.
-        weddingAudio.addEventListener('ended', () => {
-            weddingAudio.currentTime = SONG_START;
-            weddingAudio.play().catch(() => { isPlayingMusic = false; updateMusicUI(false); });
-        });
-        weddingAudio.addEventListener('error', () => {
-            showAudioError('The song file could not be loaded. Make sure assets/carry-you-home.mp3 sits next to this page.');
-        });
-
-        const seekBar = document.getElementById('seekBar');
-        const volumeBar = document.getElementById('volumeBar');
-        let isSeeking = false;
-
-        weddingAudio.addEventListener('loadedmetadata', () => {
-            // Cue up to the start mark and show the window's length, not the
-            // full track's, so the bar and the clock agree with what plays.
-            if (weddingAudio.currentTime < SONG_START) weddingAudio.currentTime = SONG_START;
-            document.getElementById('totalTime').textContent = formatTime(windowDuration());
-        });
-
-        weddingAudio.addEventListener('timeupdate', () => {
-            if (isSeeking || !weddingAudio.duration) return;
-            // Safety net if anything ever rewinds past the start mark.
-            if (weddingAudio.currentTime < SONG_START) {
-                weddingAudio.currentTime = SONG_START;
-                return;
-            }
-            const elapsed = weddingAudio.currentTime - SONG_START;
-            seekBar.value = windowDuration() ? (elapsed / windowDuration()) * 100 : 0;
-            document.getElementById('currentTime').textContent = formatTime(elapsed);
-        });
-
-        seekBar.addEventListener('input', () => {
-            isSeeking = true;
-            document.getElementById('currentTime').textContent =
-                formatTime((seekBar.value / 100) * windowDuration());
-        });
-
-        seekBar.addEventListener('change', () => {
-            if (weddingAudio.duration) {
-                weddingAudio.currentTime = SONG_START + (seekBar.value / 100) * windowDuration();
-            }
-            isSeeking = false;
-        });
-
-        volumeBar.addEventListener('input', () => { weddingAudio.volume = parseFloat(volumeBar.value); });
+        startBackgroundMusic().catch(() => armFirstGestureStart());
 
         /* -------------------------------------------------------------
            GEMINI API UTILITY — WITH RETRIES, BACKOFF & OFFLINE FALLBACK
@@ -792,71 +638,6 @@
             document.getElementById('aiStoryContainer').classList.add('hidden');
         }
 
-        // 2. AI Wish Generator for RSVP
-        async function generateAiWish() {
-            const btn = document.getElementById('aiWishBtn');
-            const notesInput = document.getElementById('guestNotes');
-            const guestName = document.getElementById('guestName').value.trim() || 'A Dear Friend';
-
-            const originalText = btn.innerText;
-            btn.innerText = "✨ Generating...";
-            btn.disabled = true;
-
-            const prompt = `Write a heart-warming 2-sentence wedding congratulatory wish or blessing for Mahmoud & Nouran from ${guestName}. Mix Egyptian Arabic blessing phrases (like Mabrouk, Alf Mabrouk, Rabena Yes3edko) with warm English wishes.`;
-            const system = "You are a thoughtful wedding guest helper.";
-
-            const wish = await callGeminiText(prompt, system);
-            notesInput.value = wish || offlineWish(guestName);
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-
-        function offlineWish(guestName) {
-            const wishes = [
-                `Alf mabrouk ya Mahmoud & Nouran! May your home always be full of laughter, and Rabena yes3edko wi ye7'alikom le ba3d.`,
-                `Mabrouk to the most beautiful couple — may this be the smallest joy of your life together. Rabena yetammem 3aleikom bel kheir wi el sa3ada.`,
-                `Alf alf mabrouk! Wishing you a lifetime as warm as a Cairo evening and as steady as the Nile — Rabena yes3edko ya rab.`,
-                `Congratulations ya arousa wi 3arees! May every year together be sweeter than the last — 3o2bal 100 sana ma3a ba3d.`
-            ];
-            return `${pickRandom(wishes)}\n\n— ${guestName}`;
-        }
-
-        // 3. AI DJ Song Idea Generator
-        async function generateAiSongIdea() {
-            const btn = document.getElementById('aiSongBtn');
-            const notesInput = document.getElementById('guestNotes');
-
-            const originalText = btn.innerText;
-            btn.innerText = "🎵 Recommending...";
-            btn.disabled = true;
-
-            const prompt = "Suggest 2 fantastic, upbeat Egyptian or Arabic wedding songs (e.g., Tamer Hosny, Nancy Ajram, Amr Diab, or classic Zaffah songs) that guests can request for the DJ at Mahmoud & Nouran's wedding party.";
-            const system = "You are an expert Egyptian wedding DJ assistant.";
-
-            const songIdea = await callGeminiText(prompt, system);
-            const currentVal = notesInput.value ? notesInput.value + "\n\n" : "";
-            notesInput.value = currentVal + "🎵 Song Request: " + (songIdea || offlineSongIdea());
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-
-        function offlineSongIdea() {
-            const songs = [
-                'Amr Diab — "Tamally Ma\'ak"',
-                'Amr Diab — "Nour El Ein"',
-                'Tamer Hosny — "Ya Bent El Eh"',
-                'Nancy Ajram — "Ah W Noss"',
-                'Hakim — "Yaho"',
-                'Saad El Soghayar — "El Zaffa"',
-                'Mohamed Mounir — "Ezzay"',
-                'Sherine — "Mashy Haddy"'
-            ];
-            const first = pickRandom(songs);
-            let second = pickRandom(songs);
-            while (second === first) second = pickRandom(songs);
-            return `${first} and ${second} — perfect for the zaffah and the dance floor!`;
-        }
-
         // 4. AI Concierge Chatbot
         const weddingContext = `
 You are the AI Concierge for the wedding celebration of Mahmoud & Nouran!
@@ -869,7 +650,7 @@ Event Details:
   - 6:45 PM: Zaffah & Celebration Party till late
 - Vibe & Theme: Formal / Semi-formal Elegant Egyptian Wedding.
 - Parking: Valet parking and ample parking spaces available at Tiba Rose Hotel.
-- RSVP Deadline: September 10, 2026.
+- RSVP Deadline: August 31, 2026.
 Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian Arabic greetings (Ahlan, Mabrouk, etc.) when appropriate.
 `;
 
@@ -924,7 +705,7 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
                 [['dress code', 'dress', 'wear', 'outfit', 'attire'],
                  'The dress code is formal / semi-formal elegant. Think classic evening wear — and comfortable enough for the zaffah, because there will be dancing!'],
                 [['rsvp', 'respond by', 'deadline', 'confirm my'],
-                 'Please RSVP by September 10, 2026 using the form on this page — it helps Mahmoud & Nouran plan the seating and the catering. Shukran!'],
+                 'Please RSVP by August 31, 2026 using the form on this page — it helps Mahmoud & Nouran plan the seating and the catering. Shukran!'],
                 [['gift', 'registry', 'present for', 'nota'],
                  'Your presence is the gift! If you would still like to mark the day, a warm message in the RSVP blessings box means the world to Mahmoud & Nouran.'],
                 [['kids', 'children', 'child', 'plus one', 'bring my', 'how many can i'],
@@ -932,7 +713,7 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
                 [['food', 'dinner', 'menu', 'catering', 'buffet', 'vegetarian'],
                  'Dinner is served during the celebration, after the zaffah — come hungry! If you have any dietary needs, note them in the RSVP form and we will take care of it.'],
                 [['song', 'music', 'dj', 'dance'],
-                 'The couple\'s song is "Carry You Home" by Alex Warren — you can play it right here on the page. And yes, you can request a track for the DJ in the RSVP form!'],
+                 'There will be plenty of music and dancing! And yes — you can request a track for the DJ in the "Song Requests" field on the RSVP form.'],
                 [['what time', 'timing', 'katb', 'ketab', 'zaffah', 'schedule', 'start', 'arrive', 'when does', 'how early'],
                  'Guests are welcomed from 5:30 PM, the Katb Ketab (كتب الكتاب) is at 6:30 PM, and the Zaffah and celebration begin at 6:45 PM and run late. Arriving by 6:15 PM means you will not miss a thing.'],
                 [['what date', 'which day', 'october', 'calendar', 'what day'],
@@ -1053,8 +834,10 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
         let mahmoudImg = new Image();
         let nouranImg = new Image();
 
-        const DEFAULT_MAHMOUD_PHOTO = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80";
-        const DEFAULT_NOURAN_PHOTO = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80";
+        // The couple's own childhood photos, served from this repo — no stock
+        // strangers, and nothing to fetch from a third party.
+        const DEFAULT_MAHMOUD_PHOTO = "assets/photos/photo-2.jpg";
+        const DEFAULT_NOURAN_PHOTO = "assets/photos/photo-1.jpg";
 
         mahmoudImg.crossOrigin = "anonymous";
         nouranImg.crossOrigin = "anonymous";
@@ -1208,34 +991,87 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
         }
 
         /* -------------------------------------------------------------
-           RSVP LOCAL STORAGE & SHEET LOGIC
+           RSVP → GOOGLE SHEET
+
+           Responses are POSTed to a Google Apps Script web app bound to the
+           couple's sheet. A static page cannot write to Sheets directly, so
+           the script is the (free, no-key) bridge — see google-apps-script.gs
+           and the README for the one-time deploy.
+
+           Every response is ALSO kept in localStorage. If the network or the
+           script fails, the RSVP is still recoverable rather than lost, and
+           unsent ones are retried on the next visit.
         ------------------------------------------------------------- */
+        const SHEET_ENDPOINT = ""; // ← paste the Apps Script /exec URL here
+
         let rsvpDatabase = JSON.parse(localStorage.getItem('mn_wedding_rsvps') || '[]');
 
-        function updateResponseCount() {
-            document.getElementById('responseCount').innerText = rsvpDatabase.length;
+        function saveLocally(response) {
+            rsvpDatabase.push(response);
+            localStorage.setItem('mn_wedding_rsvps', JSON.stringify(rsvpDatabase));
         }
-        updateResponseCount();
 
-        function handleRSVPSubmit(e) {
+        function markSynced(response) {
+            response.synced = true;
+            localStorage.setItem('mn_wedding_rsvps', JSON.stringify(rsvpDatabase));
+        }
+
+        // no-cors keeps this simple: Apps Script doesn't return CORS headers
+        // on redirects, and we don't need to read the reply — only to deliver.
+        async function sendToSheet(response) {
+            if (!SHEET_ENDPOINT) return false;
+            try {
+                await fetch(SHEET_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(response)
+                });
+                return true;
+            } catch (err) {
+                console.warn('RSVP could not reach the sheet:', err);
+                return false;
+            }
+        }
+
+        // Anything that never made it to the sheet gets another go on load.
+        async function retryUnsyncedRsvps() {
+            if (!SHEET_ENDPOINT) return;
+            for (const entry of rsvpDatabase.filter(r => !r.synced)) {
+                if (await sendToSheet(entry)) markSynced(entry);
+            }
+        }
+
+        async function handleRSVPSubmit(e) {
             e.preventDefault();
+
+            const btn = document.getElementById('rsvpSubmitBtn');
+            const originalLabel = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = 'Sending…';
 
             const response = {
                 timestamp: new Date().toLocaleString(),
                 name: document.getElementById('guestName').value.trim(),
-                email: document.getElementById('guestEmail').value.trim(),
                 phone: document.getElementById('guestPhone').value.trim() || 'N/A',
                 attendance: document.getElementById('guestAttendance').value,
                 guests: document.getElementById('guestCount').value,
-                notes: document.getElementById('guestNotes').value.trim() || 'None'
+                songs: document.getElementById('guestSongs').value.trim() || 'None',
+                notes: document.getElementById('guestNotes').value.trim() || 'None',
+                synced: false
             };
 
-            rsvpDatabase.push(response);
-            localStorage.setItem('mn_wedding_rsvps', JSON.stringify(rsvpDatabase));
-            updateResponseCount();
+            saveLocally(response);
+            if (await sendToSheet(response)) markSynced(response);
 
+            btn.disabled = false;
+            btn.innerText = originalLabel;
             document.getElementById('rsvpForm').reset();
-            showModal("RSVP Received!", `Thank you ${response.name}! Your response ("${response.attendance}") has been saved to Mahmoud & Nouran's wedding guest list.`);
+
+            const warm = response.attendance === 'Unfortunately No'
+                ? `Thank you for letting us know, ${response.name} — you will be missed, and we appreciate the reply.`
+                : `Thank you ${response.name}! Your response ("${response.attendance}") has been sent to Mahmoud & Nouran.`;
+            showModal("RSVP Received!", warm);
         }
 
         function showModal(title, bodyText) {
@@ -1253,7 +1089,7 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
             tableBody.innerHTML = '';
 
             if (rsvpDatabase.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-stone-400">No RSVP entries logged yet. Be the first to submit above!</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-stone-400">No RSVPs recorded on this device yet.</td></tr>`;
             } else {
                 // Built with textContent, never innerHTML — guest-supplied
                 // names and notes must never be parsed as markup.
@@ -1271,19 +1107,23 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
 
                     addCell(tr, item.timestamp, 'text-[10px]');
                     addCell(tr, item.name, 'font-bold');
-                    addCell(tr, item.email, 'text-stone-600');
                     addCell(tr, item.phone);
 
                     const attendanceCell = addCell(tr, '');
                     const badge = document.createElement('span');
-                    const accepted = (item.attendance || '').includes('Accept');
+                    const tone = { 'Yes': 'bg-emerald-100 text-emerald-800',
+                                   'Maybe': 'bg-amber-100 text-amber-800',
+                                   'Unfortunately No': 'bg-rose-100 text-rose-800' };
                     badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold ' +
-                        (accepted ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800');
+                        (tone[item.attendance] || 'bg-stone-100 text-stone-700');
                     badge.textContent = item.attendance;
                     attendanceCell.appendChild(badge);
 
                     addCell(tr, item.guests, 'text-center');
+                    addCell(tr, item.songs, 'text-stone-600');
                     addCell(tr, item.notes, 'text-stone-600 italic max-w-xs truncate');
+                    addCell(tr, item.synced ? '✓ sent' : '⚠ local only',
+                            item.synced ? 'text-emerald-700 text-[10px]' : 'text-rose-700 text-[10px]');
 
                     tableBody.appendChild(tr);
                 });
@@ -1306,9 +1146,9 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
             // newlines and Arabic text intact, and the BOM makes Excel
             // open it as UTF-8.
             const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
-            const rows = [['Timestamp', 'Name', 'Email', 'Phone', 'Attendance', 'Guests', 'Notes']];
+            const rows = [['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Song Requests', 'Blessings', 'Sent to Sheet']];
             rsvpDatabase.forEach(r => {
-                rows.push([r.timestamp, r.name, r.email, r.phone, r.attendance, r.guests, r.notes]);
+                rows.push([r.timestamp, r.name, r.phone, r.attendance, r.guests, r.songs, r.notes, r.synced ? 'yes' : 'no']);
             });
             const csvContent = '﻿' + rows.map(cols => cols.map(esc).join(',')).join('\r\n');
 
@@ -1322,6 +1162,22 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
         }
+
+        /* -------------------------------------------------------------
+           PRIVATE BACKUP LOG
+           Guests must not see who is coming, so there is no link to this on
+           the page. Open the invitation with ?admin=1 to get a small button
+           that reveals the local backup of responses.
+        ------------------------------------------------------------- */
+        if (new URLSearchParams(location.search).has('admin')) {
+            const adminBtn = document.createElement('button');
+            adminBtn.textContent = '📋 RSVP backup log';
+            adminBtn.className = 'fixed bottom-5 left-5 z-40 bg-stone-800 hover:bg-stone-900 text-white text-[11px] font-semibold px-3 py-2 rounded-full shadow-lg';
+            adminBtn.onclick = openSheetManager;
+            document.body.appendChild(adminBtn);
+        }
+
+        retryUnsyncedRsvps();
 
         // Redraw once the cursive font actually arrives, otherwise the
         // polaroid names render in the fallback face.
