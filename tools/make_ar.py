@@ -112,6 +112,23 @@ resub(
     flags=re.S,
 )
 
+# This edition shows only the two childhood photographs, so every card that is
+# not one of them is dropped, and the grid narrows to suit a pair.
+resub(
+    r'\n[ \t]*<div class="gallery-item (?:outings|engagement) .*?\n[ \t]*</div>\n[ \t]*</div>\n',
+    "\n",
+    flags=re.S,
+    expect=5,
+)
+sub(
+    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="galleryGrid">',
+    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-3xl mx-auto" id="galleryGrid">',
+)
+
+# "Our Journey Together" went with the rest of the journey; the small label
+# above it is heading enough for two baby photographs.
+resub(r'\n[ \t]*<h2 class="font-cursive text-5xl text-\[#7d5a50\] mt-1">Our Journey Together</h2>', "")
+
 # ---------------------------------------------------------------- copy
 PAIRS = [
     # header
@@ -129,44 +146,14 @@ PAIRS = [
     (">Secs<", ">ثانية<"),
     # gallery
     ("Cherished Chapters", "ذكريات غالية"),
-    ("Our Journey Together", "رحلتنا معًا"),
     (">Childhood<", ">الطفولة<"),
-    (">Outings<", ">نزهات<"),
-    (">Engagement<", ">الخطوبة<"),
     (">Mahmoud</h4>", ">محمود</h4>"),
     (">Nouran</h4>", ">نوران</h4>"),
     ("Always dreaming big with a bright smile.", "يحلم دائمًا بالكبير، وابتسامته لا تفارقه."),
     ("Filled with joy and endless energy.", "مليئة بالفرح وطاقة لا تنتهي."),
-    ("Building Our First Home", "نبني بيتنا الأول"),
-    ("Bare walls, and already full of plans.", "جدران عارية، وأحلام تملأ المكان."),
-    ("An Evening Out", "سهرة معًا"),
-    ("Dressed up, out late, and laughing.", "أناقة وضحك حتى وقت متأخر."),
-    ("Onto The Dance Floor", "إلى ساحة الرقص"),
-    ("The night everyone danced with us.", "الليلة التي رقص فيها الجميع معنا."),
-    ("Hand In Hand", "يدًا بيد"),
-    ("Walking into everything that comes next.", "نمضي معًا إلى كل ما هو آتٍ."),
-    ("Under The Lights", "تحت الأضواء"),
-    ("A quiet moment in the middle of the celebration.", "لحظة هدوء في قلب الاحتفال."),
     # alt text
     ('alt="Mahmoud as a little boy"', 'alt="محمود وهو طفل صغير"'),
     ('alt="Nouran as a little girl"', 'alt="نوران وهي طفلة صغيرة"'),
-    (
-        'alt="Mahmoud and Nouran in their home while it was being built"',
-        'alt="محمود ونوران في بيتهما أثناء بنائه"',
-    ),
-    ('alt="Mahmoud and Nouran on an evening out"', 'alt="محمود ونوران في سهرة"'),
-    (
-        'alt="Mahmoud and Nouran dancing at their engagement party"',
-        'alt="محمود ونوران يرقصان في حفل الخطوبة"',
-    ),
-    (
-        'alt="Mahmoud and Nouran walking hand in hand by the water"',
-        'alt="محمود ونوران يمشيان يدًا بيد على الماء"',
-    ),
-    (
-        'alt="Mahmoud and Nouran together at the engagement, hand in hand under the lights"',
-        'alt="محمود ونوران معًا في الخطوبة، يدًا بيد تحت الأضواء"',
-    ),
     # schedule
     ("Wedding Schedule", "برنامج الحفل"),
     ("Thursday, September 24, 2026", "الخميس ٢٤ سبتمبر ٢٠٢٦"),
