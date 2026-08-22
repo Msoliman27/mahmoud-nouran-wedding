@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="حفل زفاف محمود ونوران — الخميس ٢٤ سبتمبر ٢٠٢٦، قاعة لافندولا، فندق طيبة روز، القاهرة.">
+    <title>محمود ونوران — حفل الزفاف</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amberGold: '#d4af37',
+                        roseDust: '#b48a7d',
+                        warmSand: '#fcf8f5',
+                        deepBronze: '#7d5a50',
+                        emeraldRose: '#2d4030',
+                    },
+                    fontFamily: {
+                        cursive: ['Aref Ruqaa', 'serif'],
+                        serifHeader: ['Amiri', 'serif'],
+                        bodyText: ['Tajawal', 'sans-serif'],
+                        subHeader: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #fdfbf7;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        .font-cursive { font-family: 'Aref Ruqaa', serif; line-height: 1.6; }
+        /* No letter-spacing anywhere in Arabic: it prises apart letters that
+           are supposed to join, and the word stops looking like a word. */
+        .font-cinzel { font-family: 'Amiri', serif; }
+        /* Cormorant runs small and light for its point size, so headings that
+           use it are nudged up a weight rather than a size. */
+        .font-playfair { font-family: 'Amiri', serif; font-weight: 700; }
+
+        /* Arabic runs shorter than Latin at the same point size, and Aref Ruqaa
+           sits low; both want a little more room than the Latin original. */
+        h1.font-cursive, h2.font-cursive { line-height: 1.5; padding-bottom: 0.12em; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 15px 35px rgba(125, 90, 80, 0.08);
+        }
+
+        .gold-border { border: 1px solid rgba(212, 175, 55, 0.4); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fcf8f5; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+        #petalCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fade-in { animation: none; }
+            #petalCanvas { display: none; }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-stone-800 antialiased">
+
+    <canvas id="petalCanvas"></canvas>
+
+    <!-- Ambient background music. Deliberately has no visible controls and
+         names no track: it is atmosphere, not a player. -->
+    <audio id="weddingAudio" src="../assets/background-music.mp3" preload="auto" loop autoplay></audio>
+
+    <!-- Main Outer Container -->
+    <div class="max-w-4xl mx-auto px-4 py-8 md:py-12 relative z-20">
+
+        <header class="text-center mb-12">
+            <div class="inline-block mb-3 px-5 py-1.5 rounded-full bg-amber-100/80 border border-amber-300 text-xsst uppercase text-amber-900 font-bold shadow-sm">
+                بمشاركة عائلتيهما
+            </div>
+            <p class="text-xs md:text-smst uppercase text-amber-800/90 mb-2 font-semibold">
+                يتشرفان بدعوتكم لحضور حفل زفاف
+            </p>
+            <h1 class="font-cursive text-6xl md:text-8xl text-[#7d5a50] drop-shadow-sm my-2">
+                محمود ونوران
+            </h1>
+            <div class="flex items-center justify-center gap-3 my-4">
+                <div class="h-[1px] w-12 bg-amber-400/60"></div>
+                <span class="text-amber-600 text-lg">❖</span>
+                <div class="h-[1px] w-12 bg-amber-400/60"></div>
+            </div>
+            <p class="font-playfair text-stone-600 italic text-base md:text-lg max-w-xl mx-auto">
+                «بكل فرحٍ وامتنان، ندعوكم لمشاركتنا سعادتنا ونحن نبدأ حياتنا معًا.»
+            </p>
+        </header>
+
+        <div class="glass-card rounded-2xl p-6 mb-12 text-center max-w-2xl mx-auto gold-border">
+            <h3 class="font-cinzel text-xs uppercasest text-amber-800 mb-4 font-bold">العدّ التنازلي ليومنا الكبير</h3>
+            <div class="grid grid-cols-4 gap-2 md:gap-4 max-w-md mx-auto">
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60">
+                    <span id="cdDays" class="block font-serifHeader text-2xl md:text-3xl font-bold text-stone-800">--</span>
+                    <span class="text-[10px] uppercaser text-stone-500">يوم</span>
+                </div>
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60">
+                    <span id="cdHours" class="block font-serifHeader text-2xl md:text-3xl font-bold text-stone-800">--</span>
+                    <span class="text-[10px] uppercaser text-stone-500">ساعة</span>
+                </div>
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60">
+                    <span id="cdMins" class="block font-serifHeader text-2xl md:text-3xl font-bold text-stone-800">--</span>
+                    <span class="text-[10px] uppercaser text-stone-500">دقيقة</span>
+                </div>
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60">
+                    <span id="cdSecs" class="block font-serifHeader text-2xl md:text-3xl font-bold text-stone-800">--</span>
+                    <span class="text-[10px] uppercaser text-stone-500">ثانية</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="mb-12">
+            <div class="text-center mb-8">
+                <span class="text-xs font-semibold uppercasest text-amber-700">ذكريات غالية</span>
+                <h2 class="font-cursive text-5xl text-[#7d5a50] mt-1">رحلتنا معًا</h2>
+            </div>
+
+
+            <!-- Gallery Grid -->
+            <!-- Each card is the photo itself: the caption sits over the foot of
+                 the image rather than in a strip beneath it. The frame is an
+                 aspect ratio, not a fixed pixel height, so it scales with the
+                 column on phones and desktops instead of hard-cropping. -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="galleryGrid">
+
+                <div class="gallery-item childhood group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-2.jpg" alt="محمود وهو طفل صغير" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">الطفولة</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">محمود</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">يحلم دائمًا بالكبير، وابتسامته لا تفارقه.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item childhood group relative overflow-hidden rounded-2xl gold-border bg-rose-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-1.jpg" alt="نوران وهي طفلة صغيرة" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">الطفولة</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">نوران</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">مليئة بالفرح وطاقة لا تنتهي.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item outings group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-4.jpg" alt="محمود ونوران في بيتهما أثناء بنائه" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">نزهات</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">نبني بيتنا الأول</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">جدران عارية، وأحلام تملأ المكان.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item outings group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-5.jpg" alt="محمود ونوران في سهرة" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">نزهات</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">سهرة معًا</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">أناقة وضحك حتى وقت متأخر.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-3.jpg" alt="محمود ونوران يرقصان في حفل الخطوبة" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">الخطوبة</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">إلى ساحة الرقص</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">الليلة التي رقص فيها الجميع معنا.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-6.jpg" alt="محمود ونوران يمشيان يدًا بيد على الماء" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">الخطوبة</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">يدًا بيد</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">نمضي معًا إلى كل ما هو آتٍ.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="../assets/photos/photo-7.jpg" alt="محمود ونوران معًا في الخطوبة، يدًا بيد تحت الأضواء" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 right-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercasest px-2.5 py-1 rounded-full">الخطوبة</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">تحت الأضواء</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">لحظة هدوء في قلب الاحتفال.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            
+            <div class="glass-card p-6 md:p-8 rounded-3xl gold-border flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-amber-600 text-xl">⏳</span>
+                        <h3 class="font-cinzel text-lg font-bold text-[#7d5a50]">برنامج الحفل</h3>
+                    </div>
+                    <p class="text-xs text-stone-500 mb-6">الخميس ٢٤ سبتمبر ٢٠٢٦</p>
+
+                    <div class="space-y-6 relative border-l-2 border-amber-300 ml-3 pl-6">
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-amber-600 border-4 border-white shadow"></span>
+                            <span class="text-xs font-bold text-amber-800r">٦:٠٠ مساءً</span>
+                            <h4 class="font-playfair font-bold text-stone-800 text-sm">استقبال الضيوف</h4>
+                            <p class="text-xs text-stone-500 mt-0.5">تفتح الأبواب في تمام ٦:٠٠ مساءً — نرجو ألا تتأخروا، فكتب الكتاب يبدأ في ٧:٠٠ مساءً.</p>
+                        </div>
+
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-amber-700 border-4 border-white shadow"></span>
+                            <span class="text-xs font-bold text-amber-800r">٧:٠٠ مساءً</span>
+                            <h4 class="font-playfair font-bold text-stone-800 text-sm">كتب الكتاب</h4>
+                            <p class="text-xs text-stone-500 mt-0.5">مراسم عقد القران.</p>
+                        </div>
+
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-rose-600 border-4 border-white shadow"></span>
+                            <span class="text-xs font-bold text-amber-800r">٧:١٥ مساءً</span>
+                            <h4 class="font-playfair font-bold text-stone-800 text-sm">الزفة والاحتفال</h4>
+                            <p class="text-xs text-stone-500 mt-0.5">زفة مصرية بهيجة، وموسيقى وعشاء ورقص حتى وقت متأخر!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-amber-200/50">
+                    <a id="gCalBtn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D8%B2%D9%81%D8%A7%D9%81+%D9%85%D8%AD%D9%85%D9%88%D8%AF+%D9%88%D9%86%D9%88%D8%B1%D8%A7%D9%86&dates=20260924T150000Z/20260924T210000Z&details=%D9%83%D8%AA%D8%A8+%D8%A7%D9%84%D9%83%D8%AA%D8%A7%D8%A8+%D9%88%D8%AD%D9%81%D9%84+%D8%B2%D9%81%D8%A7%D9%81+%D9%85%D8%AD%D9%85%D9%88%D8%AF+%D9%88%D9%86%D9%88%D8%B1%D8%A7%D9%86&location=%D9%82%D8%A7%D8%B9%D8%A9+%D9%84%D8%A7%D9%81%D9%86%D8%AF%D9%88%D9%84%D8%A7%D8%8C+%D9%81%D9%86%D8%AF%D9%82+%D8%B7%D9%8A%D8%A8%D8%A9+%D8%B1%D9%88%D8%B2%D8%8C+%D8%A7%D9%84%D8%AA%D8%AC%D9%85%D8%B9+%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3+%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D8%A9" target="_blank" class="w-full bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all">
+                        <span>📅 أضيفوا الموعد إلى تقويم جوجل</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 md:p-8 rounded-3xl gold-border flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-amber-600 text-xl">📍</span>
+                        <h3 class="font-cinzel text-lg font-bold text-[#7d5a50]">المكان</h3>
+                    </div>
+
+                    <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-200/50 mb-6">
+                        <h4 class="font-playfair font-bold text-stone-800 text-base">قاعة لافندولا</h4>
+                        <p class="text-xs font-semibold text-amber-800 mt-0.5">فندق طيبة روز</p>
+                    </div>
+
+                    <p class="text-xs text-stone-500 leading-relaxed mb-6">
+                        ننتظركم في القاعات المفتوحة الأنيقة بفندق طيبة روز، ويتوفر موقف سيارات واسع وخدمة صف السيارات.
+                    </p>
+                </div>
+
+                <div>
+                    <a href="https://maps.google.com/?cid=9729512542071421495" target="_blank" class="w-full bg-emeraldRose hover:bg-stone-800 text-white text-xs font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all">
+                        <span>🗺️ الاتجاهات على خرائط جوجل</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 md:p-10 mb-12 gold-border max-w-2xl mx-auto text-center relative overflow-hidden">
+            <span class="text-xs font-bold uppercasest text-amber-700">شرفونا بحضوركم</span>
+            <h2 class="font-cursive text-5xl text-[#7d5a50] mt-2 mb-8">تأكيد الحضور</h2>
+
+            <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-4 text-right">
+                <!-- Who you are -->
+                <div>
+                    <label for="guestName" class="block text-xs font-bold text-stone-700 uppercaser mb-1">الاسم الكامل *</label>
+                    <input type="text" id="guestName" required placeholder="مثال: أحمد حسن" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
+                </div>
+
+                <!-- Whether you're coming, and with how many -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="guestAttendance" class="block text-xs font-bold text-stone-700 uppercaser mb-1">هل ستشرفوننا؟ *</label>
+                        <select id="guestAttendance" required class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
+                            <option value="" disabled selected>اختاروا الإجابة</option>
+                            <option value="نعم">نعم، سأحضر</option>
+                            <option value="ربما">ربما</option>
+                            <option value="معتذر">للأسف لن أستطيع</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="guestCount" class="block text-xs font-bold text-stone-700 uppercaser mb-1">عدد الأشخاص *</label>
+                        <select id="guestCount" required class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
+                            <option value="١">شخص واحد</option>
+                            <option value="٢">شخصان</option>
+                            <option value="٣">٣ أشخاص</option>
+                            <option value="٤+">٤ أشخاص أو أكثر</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Then the fun part -->
+                <div>
+                    <label for="guestSongs" class="block text-xs font-bold text-stone-700 uppercaser mb-1">🎵 أغنية تتمنونها</label>
+                    <input type="text" id="guestSongs" placeholder="أغنية تقوم بكم إلى ساحة الرقص..." class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
+                </div>
+
+                <div>
+                    <label for="guestNotes" class="block text-xs font-bold text-stone-700 uppercaser mb-1">كلمة تهنئة</label>
+                    <textarea id="guestNotes" rows="3" placeholder="اكتبوا كلمة جميلة لمحمود ونوران..." class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80"></textarea>
+                </div>
+
+                <button type="submit" id="rsvpSubmitBtn" class="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all text-xsr uppercase mt-4">
+                    أرسلوا تأكيد الحضور
+                </button>
+            </form>
+        </div>
+
+        <!-- Custom Notification Modal -->
+        <div id="customModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div class="glass-card max-w-md w-full rounded-3xl p-6 text-center border-2 border-amber-400/60 shadow-2xl animate-fade-in">
+                <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3 text-amber-700 text-2xl">
+                    ✨
+                </div>
+                <h3 id="modalTitle" class="font-cinzel text-lg font-bold text-[#7d5a50]">شكرًا لكم!</h3>
+                <p id="modalBody" class="text-xs text-stone-600 my-4 leading-relaxed">
+                    تم حفظ ردكم وإضافته إلى قائمة ضيوف محمود ونوران.
+                </p>
+                <button onclick="closeModal()" class="bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold py-2.5 px-6 rounded-xl transition-all">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+
+        <div id="sheetModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div class="glass-card max-w-2xl w-full rounded-3xl p-6 border-2 border-amber-400/60 shadow-2xl max-h-[85vh] flex flex-col">
+                <div class="flex justify-between items-center mb-4 pb-2 border-b border-stone-200">
+                    <div>
+                        <h3 class="font-cinzel text-base font-bold text-[#7d5a50]">سجل الردود (خاص)</h3>
+                        <p class="text-[10px] text-stone-500">نسخة محفوظة على هذا الجهاز — القائمة الحية في جدول جوجل</p>
+                    </div>
+                    <button onclick="closeSheetManager()" class="text-stone-400 hover:text-stone-700 text-xl font-bold">&times;</button>
+                </div>
+
+                <div class="overflow-x-auto flex-1 mb-4">
+                    <table class="w-full text-left text-[11px] border-collapse">
+                        <thead>
+                            <tr class="bg-amber-100/80 text-amber-900 font-bold uppercaser">
+                                <th class="p-2 border border-amber-200">التاريخ والوقت</th>
+                                <th class="p-2 border border-amber-200">الاسم</th>
+                                <th class="p-2 border border-amber-200">الحضور</th>
+                                <th class="p-2 border border-amber-200">عدد الأشخاص</th>
+                                <th class="p-2 border border-amber-200">الأغنية</th>
+                                <th class="p-2 border border-amber-200">التهنئة</th>
+                                <th class="p-2 border border-amber-200">أُرسل</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sheetTableBody" class="text-stone-700">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex justify-between items-center pt-2 border-t border-stone-200">
+                    <button onclick="exportSheetCSV()" class="bg-emeraldRose hover:bg-stone-800 text-white text-xs px-4 py-2 rounded-xl">
+                        📥 تنزيل ملف الردود
+                    </button>
+                    <button onclick="closeSheetManager()" class="bg-stone-300 hover:bg-stone-400 text-stone-800 text-xs px-4 py-2 rounded-xl">
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 pt-8 border-t border-amber-200/50 text-stone-500 text-xs">
+            <p class="font-cursive text-3xl text-[#7d5a50] mb-1">محمود ونوران</p>
+            <p>صُنع بحب ❤️</p>
+        </footer>
+
+    </div>
+
+    <script>
+        /* -------------------------------------------------------------
+           AMBIENT BACKGROUND MUSIC
+
+           The instrumental plays quietly under the page — no controls, no
+           track name. We want it audible the moment the invitation opens.
+
+           Every current browser refuses to start audible audio before the
+           visitor has interacted with the page; that is enforced by the
+           browser and cannot be switched off from here. So we do the next
+           best thing, in three steps:
+
+             1. Ask to play with sound. On a browser that trusts this site
+                (Chrome remembers domains you have played media on before)
+                this simply works and the music is on from the first frame.
+             2. If that is refused, start the track MUTED. Muted playback is
+                always permitted, so the audio is already running and in
+                sync rather than sitting idle.
+             3. Unmute on the visitor's very first touch, click, key press
+                or scroll. Because the track is already rolling, the sound
+                appears instantly instead of after a load-and-start delay.
+        ------------------------------------------------------------- */
+        const weddingAudio = document.getElementById('weddingAudio');
+        const BACKGROUND_VOLUME = 0.18;
+
+        weddingAudio.volume = BACKGROUND_VOLUME;
+
+        // Resolves true only when the track is genuinely audible: playing,
+        // and not muted. Never rejects.
+        function tryAudible() {
+            weddingAudio.muted = false;
+            weddingAudio.volume = BACKGROUND_VOLUME;
+            return weddingAudio.play()
+                .then(() => !weddingAudio.paused && !weddingAudio.muted)
+                .catch(() => false);
+        }
+
+        function playSilently() {
+            weddingAudio.muted = true;
+            return weddingAudio.play().catch(() => {});
+        }
+
+        function armFirstGestureStart() {
+            const events = ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll'];
+            const kickOff = () => {
+                tryAudible().then(audible => {
+                    if (audible) {
+                        events.forEach(evt => window.removeEventListener(evt, kickOff));
+                        return;
+                    }
+                    // That event did not count as a user activation — a scroll
+                    // does not, in Chrome. Unmuting can leave us paused, so put
+                    // the track back to silent playback and keep listening for
+                    // an event that does count. Tearing the listeners down here
+                    // is what silenced the page before: never remove them until
+                    // sound is actually coming out.
+                    playSilently();
+                });
+            };
+            events.forEach(evt => window.addEventListener(evt, kickOff, { passive: true }));
+        }
+
+        tryAudible().then(audible => {
+            if (!audible) playSilently();
+            armFirstGestureStart();
+        });
+
+        const petalCanvas = document.getElementById('petalCanvas');
+        const pCtx = petalCanvas.getContext('2d');
+
+        function resizePetalCanvas() {
+            petalCanvas.width = window.innerWidth;
+            petalCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizePetalCanvas);
+        resizePetalCanvas();
+
+        const petals = [];
+        const petalColors = ['#fbcfe8', '#f472b6', '#fde68a', '#fef3c7'];
+
+        for (let i = 0; i < 28; i++) {
+            petals.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 8 + 6,
+                speedY: Math.random() * 0.8 + 0.4,
+                speedX: Math.random() * 0.5 - 0.25,
+                rotation: Math.random() * 360,
+                rotSpeed: Math.random() * 2 - 1,
+                color: petalColors[Math.floor(Math.random() * petalColors.length)]
+            });
+        }
+
+        function animatePetals() {
+            pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+            petals.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+
+                if (p.y > petalCanvas.height + 20) {
+                    p.y = -20;
+                    p.x = Math.random() * petalCanvas.width;
+                }
+
+                pCtx.save();
+                pCtx.translate(p.x, p.y);
+                pCtx.rotate((p.rotation * Math.PI) / 180);
+                pCtx.fillStyle = p.color;
+                pCtx.globalAlpha = 0.6;
+                pCtx.beginPath();
+                pCtx.ellipse(0, 0, p.size, p.size / 2, 0, 0, Math.PI * 2);
+                pCtx.fill();
+                pCtx.restore();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // Pinned to Cairo time (UTC+3 on this date — Egypt is still on DST in
+        // late September) so the countdown is identical for a
+        // guest in Cairo, London or Dubai.
+        const weddingDate = new Date('2026-09-24T18:00:00+03:00').getTime();
+        let countdownTimer = null;
+
+        // Egypt reads ٠١٢٣ as readily as 0123, and a page with no Latin
+        // letters should not be printing Latin digits either.
+        const arabicDigits = n => String(n).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                if (countdownTimer) clearInterval(countdownTimer);
+                document.getElementById('cdDays').innerText = arabicDigits('00');
+                document.getElementById('cdHours').innerText = arabicDigits('00');
+                document.getElementById('cdMins').innerText = arabicDigits('00');
+                document.getElementById('cdSecs').innerText = arabicDigits('00');
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cdDays').innerText = arabicDigits(days < 10 ? '0' + days : days);
+            document.getElementById('cdHours').innerText = arabicDigits(hours < 10 ? '0' + hours : hours);
+            document.getElementById('cdMins').innerText = arabicDigits(mins < 10 ? '0' + mins : mins);
+            document.getElementById('cdSecs').innerText = arabicDigits(secs < 10 ? '0' + secs : secs);
+        }
+        countdownTimer = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* -------------------------------------------------------------
+           RSVP → GOOGLE SHEET
+
+           Responses are POSTed to a Google Apps Script web app bound to the
+           couple's sheet. A static page cannot write to Sheets directly, so
+           the script is the (free, no-key) bridge — see google-apps-script.gs
+           and the README for the one-time deploy.
+
+           Every response is ALSO kept in localStorage. If the network or the
+           script fails, the RSVP is still recoverable rather than lost, and
+           unsent ones are retried on the next visit.
+        ------------------------------------------------------------- */
+        const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzInbs3M9XyPUheFJjN4oeB5_JPbYOkQCVzs-Tr3UraS3gfd8su6Ng7AKEr7m-VX5Sf/exec";
+
+        let rsvpDatabase = JSON.parse(localStorage.getItem('mn_wedding_rsvps') || '[]');
+
+        function saveLocally(response) {
+            rsvpDatabase.push(response);
+            localStorage.setItem('mn_wedding_rsvps', JSON.stringify(rsvpDatabase));
+        }
+
+        function markSynced(response) {
+            response.synced = true;
+            localStorage.setItem('mn_wedding_rsvps', JSON.stringify(rsvpDatabase));
+        }
+
+        // no-cors keeps this simple: Apps Script doesn't return CORS headers
+        // on redirects, and we don't need to read the reply — only to deliver.
+        async function sendToSheet(response) {
+            if (!SHEET_ENDPOINT) return false;
+            try {
+                await fetch(SHEET_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(response)
+                });
+                return true;
+            } catch (err) {
+                console.warn('RSVP could not reach the sheet:', err);
+                return false;
+            }
+        }
+
+        // Anything that never made it to the sheet gets another go on load.
+        async function retryUnsyncedRsvps() {
+            if (!SHEET_ENDPOINT) return;
+            for (const entry of rsvpDatabase.filter(r => !r.synced)) {
+                if (await sendToSheet(entry)) markSynced(entry);
+            }
+        }
+
+        async function handleRSVPSubmit(e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('rsvpSubmitBtn');
+            const originalLabel = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = 'جارٍ الإرسال…';
+
+            const response = {
+                timestamp: new Date().toLocaleString('ar-EG'),
+                name: document.getElementById('guestName').value.trim(),
+                attendance: document.getElementById('guestAttendance').value,
+                guests: document.getElementById('guestCount').value,
+                songs: document.getElementById('guestSongs').value.trim() || 'لا شيء',
+                notes: document.getElementById('guestNotes').value.trim() || 'لا شيء',
+                synced: false
+            };
+
+            saveLocally(response);
+            if (await sendToSheet(response)) markSynced(response);
+
+            btn.disabled = false;
+            btn.innerText = originalLabel;
+            document.getElementById('rsvpForm').reset();
+
+            const warm = response.attendance === 'معتذر'
+                ? `شكرًا لإخبارنا يا ${response.name} — سنفتقدكم، ونقدّر لكم ردكم.`
+                : `شكرًا لكم يا ${response.name}! تم إرسال ردكم ("${response.attendance}") إلى محمود ونوران.`;
+            showModal("وصلنا ردكم!", warm);
+        }
+
+        function showModal(title, bodyText) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = bodyText;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        function openSheetManager() {
+            const tableBody = document.getElementById('sheetTableBody');
+            tableBody.innerHTML = '';
+
+            if (rsvpDatabase.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-stone-400">لا توجد ردود محفوظة على هذا الجهاز بعد.</td></tr>`;
+            } else {
+                // Built with textContent, never innerHTML — guest-supplied
+                // names and notes must never be parsed as markup.
+                const addCell = (row, text, className) => {
+                    const td = document.createElement('td');
+                    td.className = 'p-2 border border-stone-200 ' + (className || '');
+                    td.textContent = text;
+                    row.appendChild(td);
+                    return td;
+                };
+
+                rsvpDatabase.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-amber-50/50 border-b border-stone-200";
+
+                    addCell(tr, item.timestamp, 'text-[10px]');
+                    addCell(tr, item.name, 'font-bold');
+
+                    const attendanceCell = addCell(tr, '');
+                    const badge = document.createElement('span');
+                    const tone = { 'نعم': 'bg-emerald-100 text-emerald-800',
+                                   'ربما': 'bg-amber-100 text-amber-800',
+                                   'معتذر': 'bg-rose-100 text-rose-800' };
+                    badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold ' +
+                        (tone[item.attendance] || 'bg-stone-100 text-stone-700');
+                    badge.textContent = item.attendance;
+                    attendanceCell.appendChild(badge);
+
+                    addCell(tr, item.guests, 'text-center');
+                    addCell(tr, item.songs, 'text-stone-600');
+                    addCell(tr, item.notes, 'text-stone-600 italic max-w-xs truncate');
+                    addCell(tr, item.synced ? '✓ أُرسل' : '⚠ محفوظ محليًا',
+                            item.synced ? 'text-emerald-700 text-[10px]' : 'text-rose-700 text-[10px]');
+
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            document.getElementById('sheetModal').classList.remove('hidden');
+        }
+
+        function closeSheetManager() {
+            document.getElementById('sheetModal').classList.add('hidden');
+        }
+
+        function exportSheetCSV() {
+            if (rsvpDatabase.length === 0) {
+                showModal("لا توجد ردود", "لا توجد ردود لتصديرها بعد.");
+                return;
+            }
+
+            // Quotes doubled per RFC 4180; a Blob (not a data: URI) keeps
+            // newlines and Arabic text intact, and the BOM makes Excel
+            // open it as UTF-8.
+            const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+            const rows = [['التاريخ والوقت', 'الاسم', 'الحضور', 'عدد الأشخاص', 'الأغنية', 'التهنئة', 'أُرسل']];
+            rsvpDatabase.forEach(r => {
+                rows.push([r.timestamp, r.name, r.attendance, r.guests, r.songs, r.notes, r.synced ? 'نعم' : 'لا']);
+            });
+            const csvContent = '﻿' + rows.map(cols => cols.map(esc).join(',')).join('\r\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "ردود-حفل-محمود-ونوران.csv";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        /* -------------------------------------------------------------
+           PRIVATE BACKUP LOG
+           Guests must not see who is coming, so there is no link to this on
+           the page. Open the invitation with ?admin=1 to get a small button
+           that reveals the local backup of responses.
+        ------------------------------------------------------------- */
+        if (new URLSearchParams(location.search).has('admin')) {
+            const adminBtn = document.createElement('button');
+            adminBtn.textContent = '📋 سجل الردود';
+            adminBtn.className = 'fixed bottom-5 right-5 z-40 bg-stone-800 hover:bg-stone-900 text-white text-[11px] font-semibold px-3 py-2 rounded-full shadow-lg';
+            adminBtn.onclick = openSheetManager;
+            document.body.appendChild(adminBtn);
+        }
+
+        retryUnsyncedRsvps();
+
+        // Escape closes whichever modal is open.
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            if (!document.getElementById('customModal').classList.contains('hidden')) closeModal();
+            if (!document.getElementById('sheetModal').classList.contains('hidden')) closeSheetManager();
+        });
+
+        // Clicking the dimmed backdrop closes the modal too.
+        ['customModal', 'sheetModal'].forEach(id => {
+            const el = document.getElementById(id);
+            el.addEventListener('click', (e) => {
+                if (e.target === el) el.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
