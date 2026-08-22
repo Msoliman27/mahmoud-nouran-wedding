@@ -18,7 +18,9 @@ Tiba Rose Hotel, Cairo.
 
 `ar/index.html` is the same invitation with no English in it: right-to-left, Arabic
 type (Aref Ruqaa, Amiri, Tajawal) and Arabic-Indic numerals. Its gallery is cut
-down to the two childhood photographs, with no filter tabs.
+down to the two childhood photographs, with no filter tabs, and it opens on
+Ar-Rum 30:21 set in Amiri Quran. That verse is stored in the generator as escaped
+codepoints so its Uthmani marks cannot be mangled in transit — do not retype it.
 It is **generated**, so edit `index.html` and rebuild rather than editing it directly:
 
 ```bash
