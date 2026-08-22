@@ -101,6 +101,20 @@ sub(
     % VERSE,
 )
 
+# ---------------------------------------------------------------- no music
+# This edition is silent: the audio element and the whole autoplay dance go,
+# leaving nothing to fail quietly in the background.
+resub(
+    r"[ \t]*<!-- Ambient background music\..*?</audio>\n",
+    "",
+    flags=re.S,
+)
+resub(
+    r"[ \t]*/\* -+\n[ \t]*AMBIENT BACKGROUND MUSIC\n.*?\n[ \t]*armFirstGestureStart\(\);\n[ \t]*\}\);\n\n",
+    "",
+    flags=re.S,
+)
+
 # ---------------------------------------------------------------- type stack
 sub(
     """                    fontFamily: {
