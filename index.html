@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,10 +24,10 @@
                         emeraldRose: '#2d4030',
                     },
                     fontFamily: {
-                        cursive: ['Alex Brush', 'cursive'],
+                        cursive: ['Great Vibes', 'cursive'],
                         serifHeader: ['Cinzel', 'serif'],
-                        bodyText: ['Montserrat', 'sans-serif'],
-                        subHeader: ['Playfair Display', 'serif'],
+                        bodyText: ['Jost', 'sans-serif'],
+                        subHeader: ['Cormorant Garamond', 'serif'],
                     }
                 }
             }
@@ -35,15 +35,17 @@
     </script>
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Jost', sans-serif;
             background-color: #fdfbf7;
             color: #4a4a4a;
             overflow-x: hidden;
         }
 
-        .font-cursive { font-family: 'Alex Brush', cursive; }
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+        .font-cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+        /* Cormorant runs small and light for its point size, so headings that
+           use it are nudged up a weight rather than a size. */
+        .font-playfair { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.92);
@@ -138,53 +140,11 @@
             </div>
         </div>
 
-        <div class="glass-card rounded-3xl p-6 md:p-8 mb-12 gold-border text-center">
-            <h2 class="font-cinzel text-xl md:text-2xl text-[#7d5a50] font-bold mb-2">Our Wedding Canvas</h2>
-            <p class="text-xs text-stone-500 mb-6 max-w-md mx-auto">
-                Customize or upload custom photos to see Mahmoud & Nouran in our interactive keepsake frame!
-            </p>
-
-            <div class="flex justify-center mb-6">
-                <canvas id="weddingCanvas" width="600" height="380" class="w-full max-w-[600px] h-auto rounded-2xl shadow-inner bg-stone-100 border border-amber-200/50"></canvas>
-            </div>
-
-            <!-- Upload Photo Controls -->
-            <div class="flex flex-wrap justify-center gap-4 text-xs font-medium">
-                <label class="cursor-pointer bg-amber-700 hover:bg-amber-800 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2">
-                    <span>📷 Upload Mahmoud's Photo</span>
-                    <input type="file" id="uploadMahmoud" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'mahmoud')">
-                </label>
-                <label class="cursor-pointer bg-rose-700 hover:bg-rose-800 text-white px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2">
-                    <span>📷 Upload Nouran's Photo</span>
-                    <input type="file" id="uploadNouran" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'nouran')">
-                </label>
-                <button onclick="resetCanvasPhotos()" class="bg-stone-200 hover:bg-stone-300 text-stone-700 px-4 py-2.5 rounded-xl transition-all">
-                    Reset Default Photos
-                </button>
-            </div>
-        </div>
-
         <section class="mb-12">
             <div class="text-center mb-8">
                 <span class="text-xs font-semibold uppercase tracking-widest text-amber-700">Cherished Chapters</span>
                 <h2 class="font-cursive text-5xl text-[#7d5a50] mt-1">Our Journey Together</h2>
                 <p class="text-xs text-stone-500 max-w-md mx-auto mt-2">From childhood laughs to date outings and our special engagement day.</p>
-                
-                <!-- AI Story Narrator Trigger -->
-                <div class="mt-4">
-                    <button onclick="generateAiStory()" id="aiStoryBtn" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-700 hover:to-rose-700 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">
-                        <span>✨ Generate AI Love Story Narrative</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- AI Generated Story Display Modal / Box -->
-            <div id="aiStoryContainer" class="hidden mb-8 glass-card p-6 rounded-2xl gold-border text-center max-w-2xl mx-auto relative border-amber-300">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-700">AI Storyteller</span>
-                <div id="aiStoryText" class="font-playfair italic text-stone-700 text-sm md:text-base my-3 leading-relaxed">
-                    Generating narrative...
-                </div>
-                <button onclick="closeAiStory()" class="text-xs text-stone-400 hover:text-stone-700 underline">Close Story</button>
             </div>
 
             <!-- Gallery Category Tabs -->
@@ -196,82 +156,72 @@
             </div>
 
             <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid">
-                
-                <div class="gallery-item childhood glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-2.jpg" alt="Mahmoud as a little boy" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Childhood</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Little Mahmoud</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Always dreaming big with a bright smile.</p>
+            <!-- Each card is the photo itself: the caption sits over the foot of
+                 the image rather than in a strip beneath it. The frame is an
+                 aspect ratio, not a fixed pixel height, so it scales with the
+                 column on phones and desktops instead of hard-cropping. -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="galleryGrid">
+
+                <div class="gallery-item childhood group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-2.jpg" alt="Mahmoud as a little boy" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Childhood</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Mahmoud</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">Always dreaming big with a bright smile.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item childhood glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-rose-100 relative group">
-                        <img src="assets/photos/photo-1.jpg" alt="Nouran as a little girl" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Childhood</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Little Nouran</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Filled with joy and endless energy.</p>
+                <div class="gallery-item childhood group relative overflow-hidden rounded-2xl gold-border bg-rose-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-1.jpg" alt="Nouran as a little girl" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Childhood</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Nouran</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">Filled with joy and endless energy.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item outings glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-4.jpg" alt="Mahmoud and Nouran in their home while it was being built" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Outings</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Building Our First Home</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Bare walls, and already full of plans.</p>
+                <div class="gallery-item outings group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-4.jpg" alt="Mahmoud and Nouran in their home while it was being built" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Outings</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Building Our First Home</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">Bare walls, and already full of plans.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item outings glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-5.jpg" alt="Mahmoud and Nouran on an evening out" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-stone-900/70 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Outings</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">An Evening Out</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Dressed up, out late, and laughing.</p>
+                <div class="gallery-item outings group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-5.jpg" alt="Mahmoud and Nouran on an evening out" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-stone-900/60 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Outings</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">An Evening Out</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">Dressed up, out late, and laughing.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-3.jpg" alt="Mahmoud and Nouran dancing at their engagement party" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Onto The Dance Floor</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">The night everyone danced with us.</p>
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-3.jpg" alt="Mahmoud and Nouran dancing at their engagement party" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Engagement</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Onto The Dance Floor</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">The night everyone danced with us.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-6.jpg" alt="Mahmoud and Nouran walking hand in hand by the water" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Hand In Hand</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">Walking into everything that comes next.</p>
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-6.jpg" alt="Mahmoud and Nouran walking hand in hand by the water" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Engagement</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Hand In Hand</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">Walking into everything that comes next.</p>
                     </div>
                 </div>
 
-                <div class="gallery-item engagement glass-card p-3 rounded-2xl gold-border transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-52 overflow-hidden rounded-xl bg-amber-100 relative group">
-                        <img src="assets/photos/photo-7.jpg" alt="Mahmoud and Nouran sitting together under the evening lights" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
-                        <span class="absolute top-2 left-2 bg-amber-800 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Engagement</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h4 class="font-playfair text-sm font-bold text-stone-800">Under The Lights</h4>
-                        <p class="text-[11px] text-stone-500 mt-1">A quiet moment in the middle of the celebration.</p>
+                <div class="gallery-item engagement group relative overflow-hidden rounded-2xl gold-border bg-amber-100 shadow-lg shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1">
+                    <img src="assets/photos/photo-7.jpg" alt="Mahmoud and Nouran together at the engagement, hand in hand under the lights" loading="lazy" class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-amber-800/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full">Engagement</span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/90 via-stone-900/45 to-transparent px-4 pb-4 pt-12 text-center">
+                        <h4 class="font-cursive text-3xl text-white leading-none drop-shadow">Under The Lights</h4>
+                        <p class="text-[11px] text-white/80 mt-1.5">A quiet moment in the middle of the celebration.</p>
                     </div>
                 </div>
 
@@ -291,9 +241,9 @@
                     <div class="space-y-6 relative border-l-2 border-amber-300 ml-3 pl-6">
                         <div class="relative">
                             <span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-amber-600 border-4 border-white shadow"></span>
-                            <span class="text-xs font-bold text-amber-800 tracking-wider">5:30 PM</span>
+                            <span class="text-xs font-bold text-amber-800 tracking-wider">6:00 PM</span>
                             <h4 class="font-playfair font-bold text-stone-800 text-sm">Guest Arrivals & Welcome</h4>
-                            <p class="text-xs text-stone-500 mt-0.5">Welcoming family and friends to Lavendula Hall.</p>
+                            <p class="text-xs text-stone-500 mt-0.5">Doors open at 6:00 PM sharp — please try not to be late, the ceremony follows shortly after.</p>
                         </div>
 
                         <div class="relative">
@@ -313,7 +263,7 @@
                 </div>
 
                 <div class="mt-8 pt-4 border-t border-amber-200/50">
-                    <a id="gCalBtn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mahmoud+%26+Nouran+Wedding&dates=20260924T143000Z/20260924T210000Z&details=Katb+Ketab+and+Wedding+Celebration+of+Mahmoud+%26+Nouran&location=Lavendula%2C+Tiba+Rose+Hotel%2C+5th+Settlement+Cairo" target="_blank" class="w-full bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all">
+                    <a id="gCalBtn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mahmoud+%26+Nouran+Wedding&dates=20260924T150000Z/20260924T210000Z&details=Katb+Ketab+and+Wedding+Celebration+of+Mahmoud+%26+Nouran&location=Lavendula%2C+Tiba+Rose+Hotel%2C+5th+Settlement+Cairo" target="_blank" class="w-full bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all">
                         <span>📅 Add to Google Calendar</span>
                     </a>
                 </div>
@@ -328,12 +278,11 @@
 
                     <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-200/50 mb-6">
                         <h4 class="font-playfair font-bold text-stone-800 text-base">Lavendula Hall</h4>
-                        <p class="text-xs font-semibold text-amber-800 mt-0.5">Tiba Rose Hotel (فندق طيبة روز)</p>
-                        <p class="text-xs text-stone-600 mt-2">5th Settlement / Nasr City Axis, Cairo Governorate, Egypt</p>
+                        <p class="text-xs font-semibold text-amber-800 mt-0.5">Tiba Rose Hotel</p>
                     </div>
 
                     <p class="text-xs text-stone-500 leading-relaxed mb-6">
-                        Join us at the elegant outdoor and indoor halls of Tiba Rose. Ample valet parking and convenient access available.
+                        Join us at the elegant outdoor halls of Tiba Rose. Ample valet parking and convenient access available.
                     </p>
                 </div>
 
@@ -402,50 +351,6 @@
             </form>
         </div>
 
-        <div class="fixed bottom-5 right-5 z-40">
-            <button onclick="toggleAiAssistantModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-800 to-amber-900 hover:from-amber-900 hover:to-stone-900 text-white px-4 py-3 rounded-full shadow-2xl transition-all font-semibold text-xs border border-amber-300">
-                <span class="text-base">💬</span>
-                <span>Ask AI Wedding Concierge</span>
-            </button>
-        </div>
-
-        <!-- AI Assistant Modal Dialog -->
-        <div id="aiAssistantModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-            <div class="glass-card max-w-lg w-full rounded-3xl p-6 border-2 border-amber-400/60 shadow-2xl flex flex-col h-[520px]">
-                <div class="flex justify-between items-center pb-3 border-b border-stone-200">
-                    <div class="flex items-center gap-2">
-                        <span class="text-2xl">✨</span>
-                        <div>
-                            <h3 class="font-cinzel text-sm font-bold text-[#7d5a50]">Mahmoud & Nouran's AI Assistant</h3>
-                            <p class="text-[10px] text-stone-500">Ask about venue, timings, parking or dress code!</p>
-                        </div>
-                    </div>
-                    <button onclick="toggleAiAssistantModal()" class="text-stone-400 hover:text-stone-700 text-xl font-bold">&times;</button>
-                </div>
-
-                <!-- Chat History Window -->
-                <div id="chatHistory" class="flex-1 overflow-y-auto p-3 space-y-3 my-3 text-xs bg-stone-50/50 rounded-2xl border border-stone-200/60">
-                    <div class="bg-amber-100/80 text-amber-950 p-3 rounded-xl max-w-[85%]">
-                        Hello! 👋 I'm Mahmoud & Nouran's wedding concierge. How can I assist you with details regarding the wedding at Lavendula, Tiba Rose on September 24, 2026?
-                    </div>
-                </div>
-
-                <!-- Quick Query Chips -->
-                <div class="flex gap-1.5 overflow-x-auto pb-2 mb-2 no-scrollbar text-[10px]">
-                    <button onclick="sendQuickChat('What is the exact address and location?')" class="whitespace-nowrap bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 px-2.5 py-1 rounded-full">📍 Location?</button>
-                    <button onclick="sendQuickChat('What is the dress code?')" class="whitespace-nowrap bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 px-2.5 py-1 rounded-full">👔 Dress Code?</button>
-                    <button onclick="sendQuickChat('What time is Katb Ketab?')" class="whitespace-nowrap bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 px-2.5 py-1 rounded-full">⏰ Timings?</button>
-                    <button onclick="sendQuickChat('Is parking available at Tiba Rose?')" class="whitespace-nowrap bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 px-2.5 py-1 rounded-full">🚗 Parking?</button>
-                </div>
-
-                <!-- Input Field -->
-                <div class="flex gap-2">
-                    <input type="text" id="chatInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') sendChatMessage()" class="flex-1 p-2.5 rounded-xl border border-stone-300 text-xs outline-none focus:border-amber-500">
-                    <button onclick="sendChatMessage()" id="chatSendBtn" class="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2.5 rounded-xl font-semibold text-xs">Send</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Custom Notification Modal -->
         <div id="customModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
             <div class="glass-card max-w-md w-full rounded-3xl p-6 text-center border-2 border-amber-400/60 shadow-2xl animate-fade-in">
@@ -505,7 +410,7 @@
 
         <footer class="text-center mt-12 pt-8 border-t border-amber-200/50 text-stone-500 text-xs">
             <p class="font-cursive text-3xl text-[#7d5a50] mb-1">Mahmoud & Nouran</p>
-            <p>Made with ❤️ for our special Egyptian Wedding.</p>
+            <p>Made with ❤️</p>
         </footer>
 
     </div>
@@ -537,199 +442,6 @@
         }
 
         startBackgroundMusic().catch(() => armFirstGestureStart());
-
-        /* -------------------------------------------------------------
-           GEMINI API UTILITY — WITH RETRIES, BACKOFF & OFFLINE FALLBACK
-
-           The page works with no API key at all: every AI feature falls
-           back to a hand-written local generator. To enable live Gemini
-           replies, open the browser console once and run:
-               localStorage.setItem('mn_gemini_key', 'YOUR_KEY')
-        ------------------------------------------------------------- */
-        const GEMINI_MODEL = 'gemini-2.5-flash';
-
-        function getGeminiKey() {
-            try {
-                return (window.GEMINI_API_KEY || localStorage.getItem('mn_gemini_key') || '').trim();
-            } catch (err) {
-                return window.GEMINI_API_KEY || '';
-            }
-        }
-
-        // Resolves to the model's text, or null when unavailable — callers
-        // decide what to show instead. Never returns an error string.
-        async function callGeminiText(prompt, systemInstruction = "") {
-            const apiKey = getGeminiKey();
-            if (!apiKey) return null;
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
-
-            const payload = {
-                contents: [{ role: 'user', parts: [{ text: prompt }] }],
-            };
-            if (systemInstruction) {
-                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-            }
-
-            const maxRetries = 3;
-            let delay = 800;
-
-            for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    // 4xx are permanent (bad key, bad model) — don't burn retries.
-                    if (response.status >= 400 && response.status < 500) {
-                        console.warn(`Gemini rejected the request (${response.status}); using offline text.`);
-                        return null;
-                    }
-                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                    const result = await response.json();
-                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (text) return text.trim();
-                    throw new Error("Invalid response format");
-                } catch (err) {
-                    if (attempt === maxRetries) {
-                        console.error("Gemini API call failed:", err);
-                        return null;
-                    }
-                    await new Promise(r => setTimeout(r, delay));
-                    delay *= 2;
-                }
-            }
-            return null;
-        }
-
-        function pickRandom(list) {
-            return list[Math.floor(Math.random() * list.length)];
-        }
-
-        /* -------------------------------------------------------------
-           AI FEATURES: STORY GENERATOR, WISH GENERATOR, DJ SONGS, CONCIERGE
-        ------------------------------------------------------------- */
-        // 1. AI Story Narrator
-        const offlineStories = [
-            "Two children of Cairo grew up under the same wide sky, never knowing the city was quietly saving them for each other. Years later it was coffee that did the introducing — long evenings by the Nile where the conversation outlasted every cup. On September 24, 2026, the story their families have been telling all along finally gets its happiest chapter.",
-            "Before they had a word for it, Mahmoud and Nouran were already collecting the same city: the same streets, the same river, the same warm Cairo evenings. Then came the coffee dates that stretched past midnight, and an engagement day loud with family, laughter and joy. Everything since has simply been the road to September 24, 2026.",
-            "Some love stories begin with a spark; theirs began with a childhood, a city, and impeccable timing. Between Nile sunsets and coffee that went cold while they talked, Mahmoud and Nouran built something unhurried and certain. Their families said Mabrouk at the engagement — and this September they get to say it again, for good."
-        ];
-
-        async function generateAiStory() {
-            const btn = document.getElementById('aiStoryBtn');
-            const container = document.getElementById('aiStoryContainer');
-            const textEl = document.getElementById('aiStoryText');
-
-            container.classList.remove('hidden');
-            textEl.innerHTML = '<span class="animate-pulse text-amber-800">✨ Spinning Mahmoud &amp; Nouran\'s romantic tale...</span>';
-            btn.disabled = true;
-
-            const prompt = "Write a sweet, romantic 3-sentence storytelling narrative about Mahmoud & Nouran. Mention their childhood roots, their cozy Nile & Cairo coffee outings, and their joyful Egyptian engagement leading up to their wedding on September 24, 2026. Keep it warm and poetic.";
-            const system = "You are an eloquent wedding storyteller for Mahmoud & Nouran's celebration.";
-
-            const story = await callGeminiText(prompt, system);
-            textEl.innerText = `"${story || pickRandom(offlineStories)}"`;
-            btn.disabled = false;
-        }
-
-        function closeAiStory() {
-            document.getElementById('aiStoryContainer').classList.add('hidden');
-        }
-
-        // 4. AI Concierge Chatbot
-        const weddingContext = `
-You are the AI Concierge for the wedding celebration of Mahmoud & Nouran!
-Event Details:
-- Date: Thursday, September 24, 2026
-- Location: Lavendula Hall, Tiba Rose Hotel (فندق طيبة روز), 5th Settlement / Nasr City Axis, Cairo Governorate, Egypt.
-- Timings:
-  - 5:30 PM: Guest Arrivals & Welcome
-  - 6:30 PM: Katb Ketab (كتب الكتاب - Tying the Wedding Knot)
-  - 6:45 PM: Zaffah & Celebration Party till late
-- Vibe & Theme: Formal / Semi-formal Elegant Egyptian Wedding.
-- Parking: Valet parking and ample parking spaces available at Tiba Rose Hotel.
-- RSVP Deadline: August 31, 2026.
-Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian Arabic greetings (Ahlan, Mabrouk, etc.) when appropriate.
-`;
-
-        function toggleAiAssistantModal() {
-            const modal = document.getElementById('aiAssistantModal');
-            modal.classList.toggle('hidden');
-        }
-
-        function sendQuickChat(query) {
-            document.getElementById('chatInput').value = query;
-            sendChatMessage();
-        }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const chatHistory = document.getElementById('chatHistory');
-            const query = input.value.trim();
-            if (!query) return;
-
-            // Append User Message
-            const userMsg = document.createElement('div');
-            userMsg.className = "bg-stone-200 text-stone-800 p-2.5 rounded-xl max-w-[85%] ml-auto text-right font-medium";
-            userMsg.innerText = query;
-            chatHistory.appendChild(userMsg);
-            input.value = '';
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-
-            // Append Loading Indicator
-            const loadingMsg = document.createElement('div');
-            loadingMsg.className = "bg-amber-100/80 text-amber-900 p-2.5 rounded-xl max-w-[85%] animate-pulse italic";
-            loadingMsg.innerText = "Thinking...";
-            chatHistory.appendChild(loadingMsg);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-
-            // Call Gemini, falling back to the local answer book
-            const reply = await callGeminiText(query, weddingContext);
-            loadingMsg.classList.remove('animate-pulse', 'italic');
-            loadingMsg.innerText = reply || offlineConciergeAnswer(query);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-
-        // Keyword answer book used whenever the live model isn't available,
-        // so the concierge is never a dead button.
-        function offlineConciergeAnswer(query) {
-            const q = query.toLowerCase();
-            // Ordered most-specific first: "is parking available at Tiba
-            // Rose?" must hit the parking rule, not the venue rule that also
-            // mentions Tiba.
-            const answers = [
-                [['parking', 'park', 'valet', 'drive there'],
-                 'Yes — Tiba Rose Hotel has valet parking plus ample parking spaces, so you can arrive comfortably. No need to worry about a spot!'],
-                [['dress code', 'dress', 'wear', 'outfit', 'attire'],
-                 'The dress code is formal / semi-formal elegant. Think classic evening wear — and comfortable enough for the zaffah, because there will be dancing!'],
-                [['rsvp', 'respond by', 'deadline', 'confirm my'],
-                 'Please RSVP by August 31, 2026 using the form on this page — it helps Mahmoud & Nouran plan the seating and the catering. Shukran!'],
-                [['gift', 'registry', 'present for', 'nota'],
-                 'Your presence is the gift! If you would still like to mark the day, a warm message in the RSVP blessings box means the world to Mahmoud & Nouran.'],
-                [['kids', 'children', 'child', 'plus one', 'bring my', 'how many can i'],
-                 'Family is very welcome — just tell us your total headcount in the "Number of Guests" field on the RSVP form so we can seat everyone together.'],
-                [['food', 'dinner', 'menu', 'catering', 'buffet', 'vegetarian'],
-                 'Dinner is served during the celebration, after the zaffah — come hungry! If you have any dietary needs, note them in the RSVP form and we will take care of it.'],
-                [['song', 'music', 'dj', 'dance'],
-                 'There will be plenty of music and dancing! And yes — you can request a track for the DJ in the "Song Requests" field on the RSVP form.'],
-                [['what time', 'timing', 'katb', 'ketab', 'zaffah', 'schedule', 'start', 'arrive', 'when does', 'how early'],
-                 'Guests are welcomed from 5:30 PM, the Katb Ketab (كتب الكتاب) is at 6:30 PM, and the Zaffah and celebration begin at 6:45 PM and run late. Arriving by 6:15 PM means you will not miss a thing.'],
-                [['what date', 'which day', 'october', 'calendar', 'what day'],
-                 'The wedding is on Thursday, September 24, 2026. There is an "Add to Google Calendar" button on this page so it lands in your diary.'],
-                [['where', 'location', 'address', 'venue', 'hall', 'map', 'directions', 'tiba', 'lavendula', 'how do i get'],
-                 'Ahlan! The celebration is at Lavendula Hall, Tiba Rose Hotel (فندق طيبة روز), on the 5th Settlement / Nasr City Axis, Cairo. Use the "Get Google Maps Directions" button above and it will take you straight there.'],
-                [['time', 'when'],
-                 'Guests are welcomed from 5:30 PM, the Katb Ketab (كتب الكتاب) is at 6:30 PM, and the Zaffah and celebration begin at 6:45 PM and run late — all on Thursday, September 24, 2026.']
-            ];
-
-            for (const [keywords, answer] of answers) {
-                if (keywords.some(k => q.includes(k))) return answer;
-            }
-
-            return 'Ahlan wa sahlan! The wedding is on Thursday, September 24, 2026 at Lavendula Hall, Tiba Rose Hotel, Cairo — guests from 5:30 PM, Katb Ketab at 6:30 PM, and the Zaffah at 6:45 PM. Ask me about the location, parking, dress code or timings and I will happily help!';
-        }
 
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
@@ -786,7 +498,7 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
         // Pinned to Cairo time (UTC+3 on this date — Egypt is still on DST in
         // late September) so the countdown is identical for a
         // guest in Cairo, London or Dubai.
-        const weddingDate = new Date('2026-09-24T17:30:00+03:00').getTime();
+        const weddingDate = new Date('2026-09-24T18:00:00+03:00').getTime();
         let countdownTimer = null;
 
         function updateCountdown() {
@@ -814,160 +526,6 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
         }
         countdownTimer = setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        const mainCanvas = document.getElementById('weddingCanvas');
-        const ctx = mainCanvas.getContext('2d');
-
-        // Logical drawing size; the backing store is scaled by the device
-        // pixel ratio so the keepsake isn't blurry on phones/retina screens.
-        const CANVAS_W = 600;
-        const CANVAS_H = 380;
-
-        function setupCanvasScale() {
-            const dpr = window.devicePixelRatio || 1;
-            mainCanvas.width = CANVAS_W * dpr;
-            mainCanvas.height = CANVAS_H * dpr;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        setupCanvasScale();
-
-        let mahmoudImg = new Image();
-        let nouranImg = new Image();
-
-        // The couple's own childhood photos, served from this repo — no stock
-        // strangers, and nothing to fetch from a third party.
-        const DEFAULT_MAHMOUD_PHOTO = "assets/photos/photo-2.jpg";
-        const DEFAULT_NOURAN_PHOTO = "assets/photos/photo-1.jpg";
-
-        mahmoudImg.crossOrigin = "anonymous";
-        nouranImg.crossOrigin = "anonymous";
-        mahmoudImg.src = DEFAULT_MAHMOUD_PHOTO;
-        nouranImg.src = DEFAULT_NOURAN_PHOTO;
-
-        function onImageLoad() { drawWeddingCanvas(); }
-        function onImageError() { drawWeddingCanvas(); } // keep the placeholder frame
-        mahmoudImg.onload = onImageLoad;
-        nouranImg.onload = onImageLoad;
-        mahmoudImg.onerror = onImageError;
-        nouranImg.onerror = onImageError;
-
-        function drawWeddingCanvas() {
-            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-
-            const bgGrad = ctx.createLinearGradient(0, 0, CANVAS_W, CANVAS_H);
-            bgGrad.addColorStop(0, '#fbf8f3');
-            bgGrad.addColorStop(1, '#f2ece4');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-
-            ctx.save();
-            ctx.strokeStyle = "rgba(212, 175, 55, 0.2)";
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(300, 190, 160, 0, Math.PI * 2);
-            ctx.stroke();
-            ctx.restore();
-
-            drawPolaroidCard(50, 40, 220, 280, mahmoudImg, "Mahmoud", -0.05);
-            drawPolaroidCard(330, 40, 220, 280, nouranImg, "Nouran Helal", 0.05);
-
-            ctx.save();
-            ctx.fillStyle = "#b48a7d";
-            ctx.font = "28px Arial";
-            ctx.textAlign = "center";
-            ctx.fillText("❤️", 300, 180);
-            ctx.restore();
-        }
-
-        function drawPolaroidCard(x, y, w, h, imgObj, label, angle) {
-            ctx.save();
-            ctx.translate(x + w / 2, y + h / 2);
-            ctx.rotate(angle);
-
-            ctx.shadowColor = "rgba(125, 90, 80, 0.15)";
-            ctx.shadowBlur = 18;
-            ctx.shadowOffsetY = 8;
-
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(-w / 2, -h / 2, w, h);
-
-            ctx.shadowColor = "transparent";
-            ctx.strokeStyle = "rgba(212, 175, 55, 0.3)";
-            ctx.lineWidth = 1;
-            ctx.strokeRect(-w / 2 + 12, -h / 2 + 12, w - 24, h - 70);
-
-            if (imgObj && imgObj.complete && imgObj.naturalWidth !== 0) {
-                // Cover-crop rather than stretch, so portrait and landscape
-                // uploads both sit correctly in the frame.
-                const fx = -w / 2 + 14, fy = -h / 2 + 14, fw = w - 28, fh = h - 74;
-                const scale = Math.max(fw / imgObj.naturalWidth, fh / imgObj.naturalHeight);
-                const dw = imgObj.naturalWidth * scale;
-                const dh = imgObj.naturalHeight * scale;
-                ctx.save();
-                ctx.beginPath();
-                ctx.rect(fx, fy, fw, fh);
-                ctx.clip();
-                ctx.drawImage(imgObj, fx + (fw - dw) / 2, fy + (fh - dh) / 2, dw, dh);
-                ctx.restore();
-            } else {
-                ctx.fillStyle = "#eae3dc";
-                ctx.fillRect(-w / 2 + 14, -h / 2 + 14, w - 28, h - 74);
-            }
-
-            ctx.fillStyle = "#7d5a50";
-            ctx.font = "32px 'Alex Brush', cursive";
-            ctx.textAlign = "center";
-            ctx.fillText(label, 0, h / 2 - 18);
-
-            ctx.restore();
-        }
-
-        function handleImageUpload(e, person) {
-            const input = e.target;
-            const file = input.files[0];
-            if (!file) return;
-
-            if (!file.type.startsWith('image/')) {
-                showModal("Unsupported File", "Please choose an image file (JPG, PNG, HEIC or WebP).");
-                input.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const newImg = new Image();
-                newImg.onload = function() {
-                    if (person === 'mahmoud') mahmoudImg = newImg;
-                    if (person === 'nouran') nouranImg = newImg;
-                    drawWeddingCanvas();
-                };
-                newImg.onerror = function() {
-                    showModal("Couldn't Read That Photo", "That image could not be opened. Please try a different file.");
-                };
-                newImg.src = event.target.result;
-            };
-            reader.onerror = function() {
-                showModal("Couldn't Read That Photo", "That image could not be opened. Please try a different file.");
-            };
-            reader.readAsDataURL(file);
-
-            // Clear it so picking the same file twice still fires onchange.
-            input.value = '';
-        }
-
-        function resetCanvasPhotos() {
-            mahmoudImg = new Image();
-            nouranImg = new Image();
-            mahmoudImg.crossOrigin = "anonymous";
-            nouranImg.crossOrigin = "anonymous";
-            mahmoudImg.onload = onImageLoad;
-            nouranImg.onload = onImageLoad;
-            mahmoudImg.onerror = onImageError;
-            nouranImg.onerror = onImageError;
-            mahmoudImg.src = DEFAULT_MAHMOUD_PHOTO;
-            nouranImg.src = DEFAULT_NOURAN_PHOTO;
-            drawWeddingCanvas();
-        }
 
         function filterGallery(clickedTab, category) {
             const items = document.querySelectorAll('.gallery-item');
@@ -1002,7 +560,7 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
            script fails, the RSVP is still recoverable rather than lost, and
            unsent ones are retried on the next visit.
         ------------------------------------------------------------- */
-        const SHEET_ENDPOINT = ""; // ← paste the Apps Script /exec URL here
+        const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzInbs3M9XyPUheFJjN4oeB5_JPbYOkQCVzs-Tr3UraS3gfd8su6Ng7AKEr7m-VX5Sf/exec";
 
         let rsvpDatabase = JSON.parse(localStorage.getItem('mn_wedding_rsvps') || '[]');
 
@@ -1179,36 +737,20 @@ Answer concisely (2-3 sentences max), warmly, and politely. You can use Egyptian
 
         retryUnsyncedRsvps();
 
-        // Redraw once the cursive font actually arrives, otherwise the
-        // polaroid names render in the fallback face.
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(drawWeddingCanvas);
-        }
-
-        window.addEventListener('load', drawWeddingCanvas);
-        window.addEventListener('resize', () => {
-            setupCanvasScale();
-            drawWeddingCanvas();
-        });
-
         // Escape closes whichever modal is open.
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
             if (!document.getElementById('customModal').classList.contains('hidden')) closeModal();
             if (!document.getElementById('sheetModal').classList.contains('hidden')) closeSheetManager();
-            const assistant = document.getElementById('aiAssistantModal');
-            if (!assistant.classList.contains('hidden')) assistant.classList.add('hidden');
         });
 
         // Clicking the dimmed backdrop closes the modal too.
-        ['customModal', 'sheetModal', 'aiAssistantModal'].forEach(id => {
+        ['customModal', 'sheetModal'].forEach(id => {
             const el = document.getElementById(id);
             el.addEventListener('click', (e) => {
                 if (e.target === el) el.classList.add('hidden');
             });
         });
-
-        drawWeddingCanvas();
     </script>
 </body>
 </html>

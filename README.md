@@ -9,7 +9,7 @@ Tiba Rose Hotel, Cairo.
 |------|---------|
 | `index.html` | The whole invitation — markup, styles and script in one file |
 | `assets/background-music.mp3` | The instrumental that plays quietly under the page |
-| `assets/photos/` | The couple's own photos used in the gallery and canvas |
+| `assets/photos/` | The couple's own photos used in the gallery |
 | `google-apps-script.gs` | Receives RSVPs and appends them to the Google Sheet |
 
 ## Running it
@@ -28,7 +28,8 @@ Then visit http://localhost:8000.
 - Ambient background music: no controls, no track name, volume 18%, looping.
   Browsers block unprompted audio, so if autoplay is refused the track starts
   on the guest's first tap, scroll or key press.
-- Photo gallery with category filters, and an upload-your-own-photo keepsake canvas
+- Photo gallery with category filters; captions sit over the photos and the
+  frames are aspect-ratio based, so they scale on phones as well as desktops
 - RSVP form that posts to a Google Sheet, with a local backup on the guest's device
 - AI story and concierge features that fall back to built-in offline content,
   so every button works with no API key
