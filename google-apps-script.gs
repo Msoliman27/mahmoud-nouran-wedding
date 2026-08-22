@@ -1,11 +1,13 @@
 /**
  * RSVP receiver for the Mahmoud & Nouran wedding invitation.
  *
- * Deploy this once, bound to the couple's RSVP spreadsheet, and paste the
- * resulting /exec URL into SHEET_ENDPOINT in index.html. See README.md for
- * the click-by-click steps.
+ * Deploy this once, bound to whichever spreadsheet should collect the
+ * replies, and paste the resulting /exec URL into SHEET_ENDPOINT in
+ * index.html. See README.md for the click-by-click steps.
  *
- * Sheet: https://docs.google.com/spreadsheets/d/1DcRkaPC8yn6WQGuzwS3LfylKPvYGFkRDjbcukdgP0hU/edit
+ * It writes to the spreadsheet it is attached to, so the same code works
+ * unchanged in any Google account — no ID to edit when the sheet moves.
+ * SHEET_ID is only a fallback for running the script standalone.
  */
 
 var SHEET_ID = '1DcRkaPC8yn6WQGuzwS3LfylKPvYGFkRDjbcukdgP0hU';
@@ -51,7 +53,9 @@ function doGet() {
 
 /** Returns the RSVP tab, creating it with a frozen header row if missing. */
 function getSheet_() {
-  var book = SpreadsheetApp.openById(SHEET_ID);
+  // Prefer the spreadsheet this script is bound to; fall back to the ID only
+  // when the script is running detached from one.
+  var book = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SHEET_ID);
   var sheet = book.getSheetByName(SHEET_NAME);
 
   if (!sheet) {
