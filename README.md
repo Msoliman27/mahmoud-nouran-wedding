@@ -8,9 +8,27 @@ Tiba Rose Hotel, Cairo.
 | Path | Purpose |
 |------|---------|
 | `index.html` | The whole invitation — markup, styles and script in one file |
+| `ar/index.html` | The Arabic (RTL) edition — generated, do not hand-edit |
+| `tools/make_ar.py` | Builds `ar/index.html` from `index.html` |
 | `assets/background-music.mp3` | The instrumental that plays quietly under the page |
 | `assets/photos/` | The couple's own photos used in the gallery |
 | `google-apps-script.gs` | Receives RSVPs and appends them to the Google Sheet |
+
+## The Arabic edition
+
+`ar/index.html` is the same invitation with no English in it: right-to-left, Arabic
+type (Aref Ruqaa, Amiri, Tajawal), Arabic-Indic numerals, and no gallery filters.
+It is **generated**, so edit `index.html` and rebuild rather than editing it directly:
+
+```bash
+python tools/make_ar.py index.html ar/index.html
+```
+
+The script fails loudly if a phrase it expects has changed, which is the signal to
+add the new wording to its translation table.
+
+Both editions post to the same Google Sheet, so RSVPs land in one list. The Arabic
+edition sends Arabic values for attendance (`نعم` / `ربما` / `معتذر`).
 
 ## Running it
 
