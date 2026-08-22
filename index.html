@@ -296,8 +296,7 @@
 
         <div class="glass-card rounded-3xl p-6 md:p-10 mb-12 gold-border max-w-2xl mx-auto text-center relative overflow-hidden">
             <span class="text-xs font-bold uppercase tracking-widest text-amber-700">Honor Us With Your Presence</span>
-            <h2 class="font-cursive text-5xl text-[#7d5a50] my-2">RSVP</h2>
-            <p class="text-xs text-stone-500 mb-8">Please kindly respond by August 31, 2026 to help us prepare.</p>
+            <h2 class="font-cursive text-5xl text-[#7d5a50] mt-2 mb-8">RSVP</h2>
 
             <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-4 text-left">
                 <!-- Who you are -->
@@ -435,32 +434,45 @@
 
         weddingAudio.volume = BACKGROUND_VOLUME;
 
-        function bringUpTheSound() {
+        // Resolves true only when the track is genuinely audible: playing,
+        // and not muted. Never rejects.
+        function tryAudible() {
             weddingAudio.muted = false;
             weddingAudio.volume = BACKGROUND_VOLUME;
-            // play() again in case the browser paused us when we unmuted.
+            return weddingAudio.play()
+                .then(() => !weddingAudio.paused && !weddingAudio.muted)
+                .catch(() => false);
+        }
+
+        function playSilently() {
+            weddingAudio.muted = true;
             return weddingAudio.play().catch(() => {});
         }
 
         function armFirstGestureStart() {
-            const events = ['pointerdown', 'touchstart', 'keydown', 'click', 'scroll'];
+            const events = ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll'];
             const kickOff = () => {
-                bringUpTheSound();
-                if (!weddingAudio.muted) {
-                    events.forEach(evt => window.removeEventListener(evt, kickOff));
-                }
+                tryAudible().then(audible => {
+                    if (audible) {
+                        events.forEach(evt => window.removeEventListener(evt, kickOff));
+                        return;
+                    }
+                    // That event did not count as a user activation — a scroll
+                    // does not, in Chrome. Unmuting can leave us paused, so put
+                    // the track back to silent playback and keep listening for
+                    // an event that does count. Tearing the listeners down here
+                    // is what silenced the page before: never remove them until
+                    // sound is actually coming out.
+                    playSilently();
+                });
             };
             events.forEach(evt => window.addEventListener(evt, kickOff, { passive: true }));
         }
 
-        weddingAudio.muted = false;
-        weddingAudio.play()
-            .catch(() => {
-                // Refused with sound — fall back to a silent head start.
-                weddingAudio.muted = true;
-                return weddingAudio.play().catch(() => {});
-            })
-            .finally(armFirstGestureStart);
+        tryAudible().then(audible => {
+            if (!audible) playSilently();
+            armFirstGestureStart();
+        });
 
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
