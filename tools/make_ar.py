@@ -50,11 +50,56 @@ sub(
 # Tajawal for body. The Latin faces are dropped entirely.
 resub(
     r'<link href="https://fonts\.googleapis\.com/css2\?family=Cinzel[^"]*" rel="stylesheet">',
-    '<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">',
+    '<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">',
 )
 
 # The asset folder sits one level up now.
 s = s.replace('src="assets/', 'src="../assets/')
+
+# ---------------------------------------------------------------- the verse
+# Ar-Rum 30:21, the verse Egyptian wedding invitations open with. The text is
+# the Uthmani rasm, which carries marks ordinary Arabic faces render badly, so
+# it is set in Amiri Quran — the cut made for exactly this — and given the
+# line-height that script needs.
+# Escaped codepoint by codepoint so the Uthmani marks survive every editor,
+# clipboard and transport intact — this text has to be exact.
+VERSE = (
+    "\u0648\u064e\u0645\u0650\u0646\u0652\u0020\u0621\u064e\u0627\u064a\u064e"
+    "\u0670\u062a\u0650\u0647\u0650\u06e6\u0653\u0020\u0623\u064e\u0646\u0652"
+    "\u0020\u062e\u064e\u0644\u064e\u0642\u064e\u0020\u0644\u064e\u0643\u064f"
+    "\u0645\u0020\u0645\u0651\u0650\u0646\u0652\u0020\u0623\u064e\u0646\u0641"
+    "\u064f\u0633\u0650\u0643\u064f\u0645\u0652\u0020\u0623\u064e\u0632\u0652"
+    "\u0648\u064e\u0670\u062c\u064b\u06ed\u0627\u0020\u0644\u0651\u0650\u062a"
+    "\u064e\u0633\u0652\u0643\u064f\u0646\u064f\u0648\u0653\u0627\u06df\u0020"
+    "\u0625\u0650\u0644\u064e\u064a\u0652\u0647\u064e\u0627\u0020\u0648\u064e"
+    "\u062c\u064e\u0639\u064e\u0644\u064e\u0020\u0628\u064e\u064a\u0652\u0646"
+    "\u064e\u0643\u064f\u0645\u0020\u0645\u0651\u064e\u0648\u064e\u062f\u0651"
+    "\u064e\u0629\u064b\u06ed\u0020\u0648\u064e\u0631\u064e\u062d\u0652\u0645"
+    "\u064e\u0629\u064b\u0020\u06da\u0020\u0625\u0650\u0646\u0651\u064e\u0020"
+    "\u0641\u0650\u0649\u0020\u0630\u064e\u0670\u0644\u0650\u0643\u064e\u0020"
+    "\u0644\u064e\u0621\u064e\u0627\u064a\u064e\u0670\u062a\u064d\u06e2\u0020"
+    "\u0644\u0651\u0650\u0642\u064e\u0648\u0652\u0645\u064d\u06e2\u0020\u064a"
+    "\u064e\u062a\u064e\u0641\u064e\u0643\u0651\u064e\u0631\u064f\u0648\u0646"
+    "\u064e"
+)
+sub(
+    '        <header class="text-center mb-12">',
+    """        <!-- Ar-Rum 30:21 -->
+        <div class="text-center mb-10 md:mb-12 max-w-2xl mx-auto px-2">
+            <p class="font-quran text-lg md:text-2xl text-[#7d5a50] leading-[2.4]">
+                <span class="text-amberGold">﴿</span>%s<span class="text-amberGold">﴾</span>
+            </p>
+            <p class="text-[11px] md:text-xs text-amber-800/80 mt-3">صدق الله العظيم — سورة الروم</p>
+            <div class="flex items-center justify-center gap-3 mt-6">
+                <div class="h-px w-10 bg-amber-400/50"></div>
+                <span class="text-amber-600/70 text-xs">❖</span>
+                <div class="h-px w-10 bg-amber-400/50"></div>
+            </div>
+        </div>
+
+        <header class="text-center mb-12">"""
+    % VERSE,
+)
 
 # ---------------------------------------------------------------- type stack
 sub(
@@ -87,7 +132,9 @@ sub(
 
         /* Arabic runs shorter than Latin at the same point size, and Aref Ruqaa
            sits low; both want a little more room than the Latin original. */
-        h1.font-cursive, h2.font-cursive { line-height: 1.5; padding-bottom: 0.12em; }""",
+        h1.font-cursive, h2.font-cursive { line-height: 1.5; padding-bottom: 0.12em; }
+
+        .font-quran { font-family: 'Amiri Quran', 'Amiri', serif; }""",
 )
 
 # Letter-spacing utilities: same reason, they break Arabic joining.
