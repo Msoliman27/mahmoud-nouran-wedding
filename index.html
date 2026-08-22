@@ -411,30 +411,56 @@
     <script>
         /* -------------------------------------------------------------
            AMBIENT BACKGROUND MUSIC
+
            The instrumental plays quietly under the page — no controls, no
-           track name. Browsers block unprompted audio, so if autoplay is
-           refused we start on the guest's first tap, scroll or key press.
+           track name. We want it audible the moment the invitation opens.
+
+           Every current browser refuses to start audible audio before the
+           visitor has interacted with the page; that is enforced by the
+           browser and cannot be switched off from here. So we do the next
+           best thing, in three steps:
+
+             1. Ask to play with sound. On a browser that trusts this site
+                (Chrome remembers domains you have played media on before)
+                this simply works and the music is on from the first frame.
+             2. If that is refused, start the track MUTED. Muted playback is
+                always permitted, so the audio is already running and in
+                sync rather than sitting idle.
+             3. Unmute on the visitor's very first touch, click, key press
+                or scroll. Because the track is already rolling, the sound
+                appears instantly instead of after a load-and-start delay.
         ------------------------------------------------------------- */
         const weddingAudio = document.getElementById('weddingAudio');
         const BACKGROUND_VOLUME = 0.18;
 
         weddingAudio.volume = BACKGROUND_VOLUME;
 
-        function startBackgroundMusic() {
-            return weddingAudio.play();
+        function bringUpTheSound() {
+            weddingAudio.muted = false;
+            weddingAudio.volume = BACKGROUND_VOLUME;
+            // play() again in case the browser paused us when we unmuted.
+            return weddingAudio.play().catch(() => {});
         }
 
         function armFirstGestureStart() {
-            const events = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+            const events = ['pointerdown', 'touchstart', 'keydown', 'click', 'scroll'];
             const kickOff = () => {
-                startBackgroundMusic()
-                    .then(() => events.forEach(evt => window.removeEventListener(evt, kickOff)))
-                    .catch(() => { /* still blocked; the next gesture tries again */ });
+                bringUpTheSound();
+                if (!weddingAudio.muted) {
+                    events.forEach(evt => window.removeEventListener(evt, kickOff));
+                }
             };
             events.forEach(evt => window.addEventListener(evt, kickOff, { passive: true }));
         }
 
-        startBackgroundMusic().catch(() => armFirstGestureStart());
+        weddingAudio.muted = false;
+        weddingAudio.play()
+            .catch(() => {
+                // Refused with sound — fall back to a silent head start.
+                weddingAudio.muted = true;
+                return weddingAudio.play().catch(() => {});
+            })
+            .finally(armFirstGestureStart);
 
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
