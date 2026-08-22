@@ -307,20 +307,15 @@
                     <input type="text" id="guestName" required placeholder="e.g. Ahmed Hassan" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                 </div>
 
-                <div>
-                    <label for="guestPhone" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Phone Number</label>
-                    <input type="tel" id="guestPhone" placeholder="+20 1xx xxxxxxx" class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
-                </div>
-
                 <!-- Whether you're coming, and with how many -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="guestAttendance" class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Will You Attend? *</label>
                         <select id="guestAttendance" required class="w-full p-3 rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs bg-white/80">
                             <option value="" disabled selected>Select Attendance</option>
-                            <option value="Yes">Yes (حضور بإذن الله)</option>
-                            <option value="Maybe">Maybe (ربما)</option>
-                            <option value="Unfortunately No">Unfortunately No (اعتذار)</option>
+                            <option value="Yes">Yes</option>
+                            <option value="Maybe">Maybe</option>
+                            <option value="Unfortunately No">Unfortunately No</option>
                         </select>
                     </div>
                     <div>
@@ -383,7 +378,6 @@
                             <tr class="bg-amber-100/80 text-amber-900 font-bold uppercase tracking-wider">
                                 <th class="p-2 border border-amber-200">Timestamp</th>
                                 <th class="p-2 border border-amber-200">Full Name</th>
-                                <th class="p-2 border border-amber-200">Phone</th>
                                 <th class="p-2 border border-amber-200">Attendance</th>
                                 <th class="p-2 border border-amber-200">Guests</th>
                                 <th class="p-2 border border-amber-200">Song Requests</th>
@@ -611,7 +605,6 @@
             const response = {
                 timestamp: new Date().toLocaleString(),
                 name: document.getElementById('guestName').value.trim(),
-                phone: document.getElementById('guestPhone').value.trim() || 'N/A',
                 attendance: document.getElementById('guestAttendance').value,
                 guests: document.getElementById('guestCount').value,
                 songs: document.getElementById('guestSongs').value.trim() || 'None',
@@ -665,7 +658,6 @@
 
                     addCell(tr, item.timestamp, 'text-[10px]');
                     addCell(tr, item.name, 'font-bold');
-                    addCell(tr, item.phone);
 
                     const attendanceCell = addCell(tr, '');
                     const badge = document.createElement('span');
@@ -704,9 +696,9 @@
             // newlines and Arabic text intact, and the BOM makes Excel
             // open it as UTF-8.
             const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
-            const rows = [['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Song Requests', 'Blessings', 'Sent to Sheet']];
+            const rows = [['Timestamp', 'Name', 'Attendance', 'Guests', 'Song Requests', 'Blessings', 'Sent to Sheet']];
             rsvpDatabase.forEach(r => {
-                rows.push([r.timestamp, r.name, r.phone, r.attendance, r.guests, r.songs, r.notes, r.synced ? 'yes' : 'no']);
+                rows.push([r.timestamp, r.name, r.attendance, r.guests, r.songs, r.notes, r.synced ? 'yes' : 'no']);
             });
             const csvContent = '﻿' + rows.map(cols => cols.map(esc).join(',')).join('\r\n');
 
