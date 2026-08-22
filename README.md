@@ -17,7 +17,8 @@ Tiba Rose Hotel, Cairo.
 ## The Arabic edition
 
 `ar/index.html` is the same invitation with no English in it: right-to-left, Arabic
-type (Aref Ruqaa, Amiri, Tajawal), Arabic-Indic numerals, and no gallery filters.
+type (Aref Ruqaa, Amiri, Tajawal) and Arabic-Indic numerals. Its gallery is cut
+down to the two childhood photographs, with no filter tabs.
 It is **generated**, so edit `index.html` and rebuild rather than editing it directly:
 
 ```bash
